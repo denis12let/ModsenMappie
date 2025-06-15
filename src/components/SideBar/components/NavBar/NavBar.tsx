@@ -18,8 +18,8 @@ export const NavBar: FC = () => {
           const Element = item.element;
 
           if (item.color) {
-            const buttonFill = location.pathname.includes(item.path) ? item.color : theme.colors.white;
-            const iconFill = location.pathname.includes(item.path) ? theme.colors.white : item.color;
+            const buttonFill = !location.pathname.includes(item.path) ? item.color : theme.colors.white;
+            const iconFill = !location.pathname.includes(item.path) ? theme.colors.white : item.color;
 
             return (
               <NavBarItem color={buttonFill}>

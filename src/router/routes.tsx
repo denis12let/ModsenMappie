@@ -1,7 +1,7 @@
 import { LazyExoticComponent, ComponentType } from 'react';
 
 import { APP_ROUTES_PATH } from '@constants';
-import { Auth, Main } from '@pages';
+import { Auth, Favorites, Main, Search } from '@pages';
 
 export interface AppRoutesProps {
   path: string;
@@ -26,10 +26,10 @@ export const routes = {
 export const mainRoutes = {
   [APP_ROUTES_PATH.FAVORITES]: {
     path: APP_ROUTES_PATH.FAVORITES,
-    element: Main,
+    element: Favorites,
   },
   [APP_ROUTES_PATH.SEARCH]: {
     path: APP_ROUTES_PATH.SEARCH,
-    element: Auth,
+    element: Search,
   },
 };

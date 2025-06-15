@@ -11,7 +11,7 @@ export const SideBar: FC<SideBarProps> = ({ children }) => {
   return (
     <SideBarStyled>
       <NavBar />
-      <ToolBar />
+      <ToolBar>{children}</ToolBar>
     </SideBarStyled>
   );
 };

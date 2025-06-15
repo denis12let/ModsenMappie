@@ -45,7 +45,7 @@
       "@api/*": ["./src/api/*"],
       "@api": ["./src/api/index.ts"]
     },
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": ["./node_modules/@types", "src/styles/types"]
   },
   "include": ["src"]
 }

@@ -1,18 +1,16 @@
-import { FC, useState } from 'react';
-import {
-  ToolbarCloseBlock,
-  ToolbarCloseButton,
-  ToolbarCloseButtonIcon,
-  ToolbarCloseContainer,
-  ToolBarInner,
-  ToolBarSearch,
-  ToolBarSearchIcon,
-  ToolBarWrapper,
-} from './ToolBar.style';
-import { Input } from '@ui';
-import { Icons } from '@assets/icons';
+import { FC, ReactNode, useState } from 'react';
 
-export const ToolBar: FC = () => {
+import { Input, Text } from '@ui';
+import { Icons } from '@assets';
+
+import { ToolBarInner, ToolBarSearch, ToolBarSearchIcon, ToolBarWrapper } from './ToolBar.style';
+import { ToolButton } from './components/ToolButton';
+
+export interface ToolBarProps {
+  children: ReactNode;
+}
+
+export const ToolBar: FC<ToolBarProps> = ({ children }) => {
   const [value, setValue] = useState('');
   const [isOpen, setIsOpen] = useState(true);
 
@@ -25,16 +23,9 @@ export const ToolBar: FC = () => {
             <Icons.Search />
           </ToolBarSearchIcon>
         </ToolBarSearch>
+        {children}
       </ToolBarInner>
-      <ToolbarCloseContainer>
-        <ToolbarCloseBlock />
-        <ToolbarCloseButton onClick={() => setIsOpen(!isOpen)}>
-          <ToolbarCloseButtonIcon isOpen={isOpen}>
-            <Icons.Arrow />
-          </ToolbarCloseButtonIcon>
-        </ToolbarCloseButton>
-        <ToolbarCloseBlock />
-      </ToolbarCloseContainer>
+      <ToolButton isOpen={isOpen} setIsOpen={setIsOpen} />
     </ToolBarWrapper>
   );
 };
