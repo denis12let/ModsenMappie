@@ -16,7 +16,7 @@ const LogoContainer = styled.div`
   z-index: 1;
 `;
 
-const SideBar: React.FC = () => {
+export const SideBar: React.FC = () => {
   return (
     <SidebarContainer>
       <LogoContainer>
@@ -31,5 +31,3 @@ const SideBar: React.FC = () => {
     </SidebarContainer>
   );
 };
-
-export default SideBar;
