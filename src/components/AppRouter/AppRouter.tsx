@@ -1,5 +1,5 @@
 import { Suspense, useCallback, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { AppRoutesProps, routes } from '@router';
 import { useAppDispatch } from '@hooks/useAppDispatch';
@@ -27,14 +27,15 @@ export const AppRouter = () => {
         <Element />
       </Suspense>
     );
-
     return <Route key={router.path} element={element} path={router.path}></Route>;
   }, []);
 
+  const par = useLocation();
+  console.log(par);
   return (
     <Routes>
       {Object.values(routes).map(renderWithWrapper)}
-      {/* <Route path="*" element={<NotFoundPage />} /> */}
+      <Route path="*" element={<>not found</>} />
     </Routes>
   );
 };

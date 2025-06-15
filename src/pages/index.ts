@@ -1,2 +1,2 @@
-export * from './FavoritesPage';
-export * from './SearchPage';
+export * from './Auth';
+export * from './Main';

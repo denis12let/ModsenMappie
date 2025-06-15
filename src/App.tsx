@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { SideBar } from '@components';
 import { store } from '@store';
 import { GlobalStyle, theme } from '@styles';
+import { AppRouter } from '@components/AppRouter/AppRouter';
 
 const App: React.FC = () => {
   return (
@@ -13,8 +13,7 @@ const App: React.FC = () => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <SideBar />
-          <h1>Карта</h1>
+          <AppRouter />
         </ThemeProvider>
       </Provider>
     </HashRouter>
