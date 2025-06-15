@@ -1,6 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyle = createGlobalStyle<{}>`
+import MontBold from '/fonts/Mont/Mont-Bold.ttf';
+import MontSemiBold from '/fonts/Mont/Mont-SemiBold.ttf';
+import MontRegular from '/fonts/Mont/Mont-Regular.ttf';
+import MontLight from '/fonts/Mont/Mont-Light.ttf';
+import MontExtraLight from '/fonts/Mont/Mont-ExtraLight.ttf';
+
+export const GlobalStyle = createGlobalStyle`
     
 *,
 *::before,
@@ -52,10 +58,48 @@ html {
 
 body {
   overflow-x: hidden;
+  font-family: Mont;
+  font-weight: 500;
 }
 
 button {
   background-color: white;
   outline: none;
+}
+  
+@font-face {
+  font-family: 'Mont';
+  src: url(${MontBold});
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mont';
+  src: url(${MontSemiBold});
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mont';
+  src: url(${MontRegular});
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mont';
+  src: url(${MontLight});
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Mont';
+  src: url(${MontExtraLight});
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
 }
 `;
