@@ -1,12 +1,11 @@
-// import { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
+import { StyledNavLink, StyledNavLinkProps } from './NavLink.style';
 
-// import { RouterNavLink, RouterNavLinkProps } from './NavLink.style';
+interface NavLinkProps extends StyledNavLinkProps {
+  children: ReactNode;
+  to: string;
+}
 
-// interface NavLinkProps extends RouterNavLinkProps {
-//   children: ReactNode;
-//   to: string;
-// }
-
-// export const NavLink: FC<NavLinkProps> = ({ children, ...props }) => {
-//   return <RouterNavLink {...props}>{children}</RouterNavLink>;
-// };
+export const NavLink: FC<NavLinkProps> = ({ children, ...props }) => {
+  return <StyledNavLink {...props}>{children}</StyledNavLink>;
+};

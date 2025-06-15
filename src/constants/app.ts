@@ -1,6 +1,8 @@
 export const APP_ROUTES_PATH = {
   MAIN: '/main',
-  AUTH: '/autn',
+  AUTH: '/auth',
+  FAVORITES: '/favorities',
+  SEARCH: '/search',
 };
 // export const APP_ROUTES_PATH = {
 //   FAVORITES: '/favorities',

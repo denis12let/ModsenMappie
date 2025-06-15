@@ -18,17 +18,21 @@ export const theme = {
   },
   spacing: {
     xs: '5px',
-    sm: '17px',
+    sm: '15px',
     md: '20px',
     lg: '25px',
     xl: '30px',
     xxl: '35px',
   },
-  // media: {
-  //   small: '(max-width: 390px)',
-  //   preMedium: '(max-width: 500px)',
-  //   medium: '(max-width: 600px)',
-  //   preLarge: '(max-width: 900px)',
-  //   large: '(max-width: 1000px)',
-  // },
+
+  border: {
+    borderRadius: {
+      sm: '6px',
+      md: '10px',
+      circle: '50px',
+    },
+    width: {
+      md: '3px',
+    },
+  },
 };

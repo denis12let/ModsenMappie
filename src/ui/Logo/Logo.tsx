@@ -1,10 +1,6 @@
 import { Icons } from '@assets/icons';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
-interface LogoProps {
-  children: ReactNode;
-}
-
-export const Logo: FC<LogoProps> = ({ children }) => {
+export const Logo: FC = () => {
   return <Icons.Logo />;
 };

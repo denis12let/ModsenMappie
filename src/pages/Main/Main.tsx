@@ -1,11 +1,13 @@
 import { FC, ReactNode } from 'react';
 
+import { SideBar } from '@components';
+
 interface MainProps {
   children: ReactNode;
 }
 
 const Main: FC<MainProps> = ({ children }) => {
-  return <div>reglkhreh</div>;
+  return <SideBar>ewfwe</SideBar>;
 };
 
 export default Main;

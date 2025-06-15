@@ -10,7 +10,7 @@ export interface AppRoutesProps {
 
 export const routes = {
   [APP_ROUTES_PATH.MAIN]: {
-    path: APP_ROUTES_PATH.MAIN,
+    path: APP_ROUTES_PATH.MAIN + '/*',
     element: Main,
   },
   [APP_ROUTES_PATH.AUTH]: {
@@ -21,4 +21,15 @@ export const routes = {
   //   path: APP_ROUTES_PATH.NOT_FOUND,
   //   element: NotFoundPage,
   // },
+};
+
+export const mainRoutes = {
+  [APP_ROUTES_PATH.FAVORITES]: {
+    path: APP_ROUTES_PATH.FAVORITES,
+    element: Main,
+  },
+  [APP_ROUTES_PATH.SEARCH]: {
+    path: APP_ROUTES_PATH.SEARCH,
+    element: Auth,
+  },
 };
