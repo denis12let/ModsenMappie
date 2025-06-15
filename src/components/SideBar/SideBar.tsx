@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { NavBar } from './components/NavBar';
 import { ToolBar } from './components/ToolBar';
+import { SideBarStyled } from './SideBar.style';
 
 interface SideBarProps {
   children: ReactNode;
@@ -8,9 +9,9 @@ interface SideBarProps {
 
 export const SideBar: FC<SideBarProps> = ({ children }) => {
   return (
-    <>
+    <SideBarStyled>
       <NavBar />
       <ToolBar />
-    </>
+    </SideBarStyled>
   );
 };

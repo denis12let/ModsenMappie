@@ -16,6 +16,13 @@ export const theme = {
     lg: '16px',
     xl: '20px',
   },
+  fontWeights: {
+    extraLight: 300,
+    light: 300,
+    regular: 400,
+    semiBold: 600,
+    bold: 700,
+  },
   spacing: {
     xs: '5px',
     sm: '15px',
@@ -23,6 +30,7 @@ export const theme = {
     lg: '25px',
     xl: '30px',
     xxl: '35px',
+    xxxl: '70px',
   },
 
   border: {
@@ -34,5 +42,10 @@ export const theme = {
     width: {
       md: '3px',
     },
+  },
+  transition: {
+    quick: '0.3s',
+    medium: '0.5s',
+    slow: '0.7s',
   },
 };

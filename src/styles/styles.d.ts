@@ -20,6 +20,13 @@ declare module 'styled-components' {
       lg: string;
       xl: string;
     };
+    fontWeights: {
+      extraLight: number;
+      light: number;
+      regular: number;
+      semiBold: number;
+      bold: number;
+    };
     spacing: {
       xs: string;
       sm: string;
@@ -27,6 +34,7 @@ declare module 'styled-components' {
       lg: string;
       xl: string;
       xxl: string;
+      xxxl: string;
     };
     border: {
       borderRadius: {
@@ -37,6 +45,11 @@ declare module 'styled-components' {
       width: {
         md: string;
       };
+    };
+    transition: {
+      quick: string;
+      medium: string;
+      slow: string;
     };
   }
 }

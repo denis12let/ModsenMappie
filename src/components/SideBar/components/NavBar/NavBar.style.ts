@@ -22,6 +22,9 @@ export const NavBarWrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.gray_light_light};
     opacity: 0.5;
   }
+
+  z-index: 100;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const NavBarInner = styled.div`

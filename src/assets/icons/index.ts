@@ -1,5 +1,6 @@
 import { Architecture2 } from './Archirecture2';
 import { Architecture1 } from './Architecture1';
+import { Arrow } from './Arrow';
 import { Bank } from './Bank';
 import { Bed1 } from './Bed1';
 import { Bed2 } from './Bed2';
@@ -19,6 +20,7 @@ import { Hint } from './Hint';
 import { History } from './History';
 import { Industrial1 } from './Industrial1';
 import { Industrial2 } from './Industrial2';
+import { Login } from './Login';
 import { Logo } from './Logo';
 import { Nature } from './Nature';
 import { Other } from './Other';
@@ -38,6 +40,8 @@ export const Icons = {
 
   Search,
   Favorite,
+  Login,
+  Arrow,
 
   Architecture1,
   Architecture2,

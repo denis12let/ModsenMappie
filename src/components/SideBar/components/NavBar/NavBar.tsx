@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Logo, NavLink } from '@ui';
+import { NavLink } from '@ui';
 import { Icons } from '@assets';
 import { mainLinks } from '@constants';
 import { theme } from '@styles';
@@ -20,7 +20,7 @@ export const NavBar: FC = () => {
           if (item.color) {
             const buttonFill = location.pathname.includes(item.path) ? item.color : theme.colors.white;
             const iconFill = location.pathname.includes(item.path) ? theme.colors.white : item.color;
-            console.log(location.pathname, item.path, iconFill);
+
             return (
               <NavBarItem color={buttonFill}>
                 <Element color={iconFill} />
@@ -39,7 +39,7 @@ export const NavBar: FC = () => {
       <NavBarInner>
         <NavBarLinks>{links}</NavBarLinks>
         <NavLink to="/main">
-          <Logo />
+          <Icons.Login />
         </NavLink>
       </NavBarInner>
     </NavBarWrapper>
