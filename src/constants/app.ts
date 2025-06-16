@@ -1,5 +1,5 @@
 export const APP_ROUTES_PATH = {
-  MAIN: '/main',
+  MAIN: '/',
   AUTH: '/auth',
   FAVORITES: '/favorities',
   SEARCH: '/search',

@@ -6,14 +6,17 @@ import { ThemeProvider } from 'styled-components';
 import { store } from '@store';
 import { GlobalStyle, theme } from '@styles';
 import { AppRouter } from '@components/AppRouter/AppRouter';
+import { MapProvider } from '@context';
 
 const App: React.FC = () => {
   return (
     <HashRouter>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <AppRouter />
+          <MapProvider>
+            <GlobalStyle />
+            <AppRouter />
+          </MapProvider>
         </ThemeProvider>
       </Provider>
     </HashRouter>

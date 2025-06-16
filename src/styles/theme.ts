@@ -31,6 +31,7 @@ export const theme = {
     xl: '30px',
     xxl: '35px',
     xxxl: '70px',
+    xxxxs: '10px',
   },
 
   border: {

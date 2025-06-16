@@ -20,10 +20,13 @@ import { Hint } from './Hint';
 import { History } from './History';
 import { Industrial1 } from './Industrial1';
 import { Industrial2 } from './Industrial2';
+import { Location } from './Location';
 import { Login } from './Login';
 import { Logo } from './Logo';
+import { Minus } from './Minus';
 import { Nature } from './Nature';
 import { Other } from './Other';
+import { Plus } from './Plus';
 import { Religion1 } from './Religion1';
 import { Religion2 } from './Religion2';
 import { Search } from './Search';
@@ -91,4 +94,8 @@ export const Icons = {
   Sport2,
   Sport3,
   Sport4,
+
+  Plus,
+  Minus,
+  Location,
 };

@@ -35,6 +35,7 @@ declare module 'styled-components' {
       xl: string;
       xxl: string;
       xxxl: string;
+      xxxxs: string;
     };
     border: {
       borderRadius: {

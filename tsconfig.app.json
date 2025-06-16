@@ -32,6 +32,8 @@
       "@utils": ["./src/utils/index.ts"],
       "@constants/*": ["./src/constants/*"],
       "@constants": ["./src/constants/index.ts"],
+      "@context/*": ["./src/context/*"],
+      "@context": ["./src/context/index.ts"],
       "@styles/*": ["./src/styles/*"],
       "@styles": ["./src/styles/index.ts"],
       "@pages/*": ["./src/pages/*"],

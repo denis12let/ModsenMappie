@@ -11,6 +11,7 @@ export default defineConfig({
       '@store': '/src/store',
       '@utils': '/src/utils',
       '@constants': '/src/constants',
+      '@context': '/src/context',
       '@pages': '/src/pages',
       '@styles': '/src/styles',
       '@router': '/src/router',
@@ -19,5 +20,5 @@ export default defineConfig({
       '@api': '/src/api',
     },
   },
-  base: '/ModsenMappie',
+  base: '/ModsenMappie/',
 });

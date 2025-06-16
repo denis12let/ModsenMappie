@@ -10,7 +10,7 @@ export interface AppRoutesProps {
 
 export const routes = {
   [APP_ROUTES_PATH.MAIN]: {
-    path: APP_ROUTES_PATH.MAIN + '/*',
+    path: APP_ROUTES_PATH.MAIN + '*',
     element: Main,
   },
   [APP_ROUTES_PATH.AUTH]: {
