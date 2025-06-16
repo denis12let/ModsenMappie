@@ -13,11 +13,18 @@ export const SearchBox = styled.div`
 `;
 
 export const InputWrapper = styled.div`
-  max-width: 100px;
   max-height: 50px;
+  height: 100%;
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
 `;
 
-export const InputRadius = styled.input``;
+export const InputRadius = styled.div`
+  max-width: 100px;
+  width: 100%;
+  height: 100%;
+  & input {
+    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+  }
+`;

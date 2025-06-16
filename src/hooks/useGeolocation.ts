@@ -15,8 +15,6 @@ export const useGeolocation = () => {
           setError(error.message);
         }
       );
-    } else {
-      setError('Геолокация не поддерживается этим браузером.');
     }
   }, []);
 

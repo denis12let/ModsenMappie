@@ -1,7 +1,8 @@
 import { FC, ReactNode, useState } from 'react';
-import { Input, Text } from '@ui';
-import { InputWrapper, SearchBox } from './Search.style';
+import { Button, Input, Text } from '@ui';
+import { InputRadius, InputWrapper, SearchBox } from './Search.style';
 import { SearchList } from './components';
+import { Icons } from '@assets/icons';
 
 interface SearchProps {
   children: ReactNode;
@@ -19,9 +20,14 @@ const Search: FC<SearchProps> = ({ children }) => {
       </SearchBox>
       <Text variation="topic">В радиусе</Text>
       <InputWrapper>
-        <Input text={value} setText={setValue}></Input>
+        <InputRadius>
+          <Input text={value} setText={setValue} />
+        </InputRadius>
         <Text variation="title">км</Text>
       </InputWrapper>
+      {/* <Button>
+        <Icons.Search />
+      </Button> */}
     </>
   );
 };
