@@ -6,8 +6,6 @@ export const InputStyle = styled.input`
   outline: none;
   cursor: pointer;
 
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.xxxl} `};
-
   opacity: 0.5;
   border-radius: ${({ theme }) => theme.border.borderRadius.md};
   border: ${({ theme }) => `${theme.border.width.md} solid ${theme.colors.gray_light_light}`};

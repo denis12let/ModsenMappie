@@ -11,4 +11,5 @@ export const StyledNavLink = styled(NavLink)<StyledNavLinkProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${({ theme }) => theme.colors.gray_light_light};
 `;

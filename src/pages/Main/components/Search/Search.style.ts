@@ -11,3 +11,13 @@ export const SearchBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
 `;
+
+export const InputWrapper = styled.div`
+  max-width: 100px;
+  max-height: 50px;
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
+`;
+
+export const InputRadius = styled.input``;

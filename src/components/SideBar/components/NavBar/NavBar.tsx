@@ -1,15 +1,44 @@
-import { FC } from 'react';
+import { FC, JSX, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { NavLink } from '@ui';
+import { Button, NavLink } from '@ui';
 import { Icons } from '@assets';
-import { mainLinks } from '@constants';
+import { APP_ROUTES_PATH, mainLinks } from '@constants';
 import { theme } from '@styles';
 
 import { NavBarInner, NavBarItem, NavBarLinks, NavBarWrapper } from './NavBar.style';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './../../../../firebase';
 
 export const NavBar: FC = () => {
   const location = useLocation();
+  const [element, setElement] = useState<JSX.Element | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setElement(
+          <Button onClick={userSignOut}>
+            <Icons.Bed1 />
+          </Button>
+        );
+      } else {
+        setElement(
+          <NavLink to={APP_ROUTES_PATH.AUTH}>
+            <Icons.Login />
+          </NavLink>
+        );
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  function userSignOut() {
+    signOut(auth)
+      .then(() => console.log('success'))
+      .catch(() => console.log('не success'));
+  }
 
   const links = mainLinks.map((item) => {
     return (
@@ -38,26 +67,8 @@ export const NavBar: FC = () => {
     <NavBarWrapper>
       <NavBarInner>
         <NavBarLinks>{links}</NavBarLinks>
-        <NavLink to="/main">
-          <Icons.Login />
-        </NavLink>
+        {element}
       </NavBarInner>
     </NavBarWrapper>
   );
 };
-
-// const links = mainLinks.map((item) => {
-//   const isActive = location.pathname.includes(item.path);
-//   const Element = item.element;
-
-//   if (item.color) {
-//     const buttonFill = location.pathname.includes(item.path) ? item.color : theme.colors.white;
-//     const iconFill = location.pathname.includes(item.path) ? theme.colors.white : item.color;
-//     console.log(location.pathname, item.path, iconFill);
-//   }
-
-//   return (
-//     <NavLink key={item.path} to={item.path}>
-//       {item.color ? <Element color={isActive ? theme.colors.white : item.color} /> : <Element />}
-//     </NavLink>
-//   );
