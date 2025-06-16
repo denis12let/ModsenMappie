@@ -9,6 +9,8 @@ export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
   width: 100%;
   display: flex;
   left: 110px;
+  top: 0;
+  height: 100%;
 
   transform: ${({ isOpen }) => (isOpen ? '' : `translateX(-${400}px)`)};
   transition: all ${({ theme }) => theme.transition.medium};
@@ -24,6 +26,8 @@ export const ToolBarInner = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm};
+
+  background: ${({ theme }) => theme.colors.white};
 `;
 
 export const ToolBarSearch = styled.div`

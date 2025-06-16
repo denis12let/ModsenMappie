@@ -4,5 +4,5 @@ export const SideBarStyled = styled.div`
   display: flex;
   height: 100vh;
 
-  position: relative;
+  z-index: 10;
 `;

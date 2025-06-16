@@ -8,7 +8,7 @@ interface Architecture1Props {
 }
 
 export const Architecture1: FC<Architecture1Props> = (props) => (
-  <svg width={200} height={201} viewBox="0 0 200 201" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg width={30} height={30} viewBox="0 0 200 201" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <g clipPath="url(#clip0_1_308)">
       <rect y={0.5} width={200} height={200} rx={100} fill="#B97C44" />
       <path
