@@ -19,7 +19,7 @@ const Main: FC<MainProps> = ({ children }) => {
       <SideBar>
         <MainRouter />
       </SideBar>
-      <Map apiKey={apiKey} center={[55.751244, 37.618423]} />
+      <Map apiKey={apiKey} center={[1, 1]} />
       <Controls />
     </MainStyled>
   );

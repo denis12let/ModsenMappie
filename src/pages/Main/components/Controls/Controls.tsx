@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { ConstrolsStyled, ControlButton, ControlIcon, ControlItem, Line } from './Controls.style';
 import { Icons } from '@assets/icons';
 import { useMapContext } from '@context';
+import { handleLocateUser } from '@utils/mapControls';
 
 export const Controls: FC = () => {
   const { mapRef, zoom, setZoom, userPlacemarkRef } = useMapContext();
@@ -22,60 +23,10 @@ export const Controls: FC = () => {
     }
   };
 
-  // const handleLocateUser = () => {
-  //   console.log(1);
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition((position) => {
-  //       const userCoordinates: [number, number] = [position.coords.latitude, position.coords.longitude];
-  //       if (mapRef.current) {
-  //         mapRef.current.setCenter(userCoordinates);
-  //         mapRef.current.setZoom(14);
-  //       }
-  //     });
-  //   } else {
-  //     console.error('Геолокация не поддерживается этим браузером.');
-  //   }
-  // };
-
-  const handleLocateUser = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const userCoordinates: [number, number] = [position.coords.latitude, position.coords.longitude];
-
-          if (mapRef.current) {
-            if (userPlacemarkRef.current) {
-              mapRef.current.geoObjects.remove(userPlacemarkRef.current);
-            }
-
-            userPlacemarkRef.current = new window.ymaps.Placemark(
-              userCoordinates,
-              {
-                iconCaption: 'Вы здесь',
-              },
-              {
-                preset: 'islands#blueDotIconWithCaption',
-              }
-            );
-
-            mapRef.current.geoObjects.add(userPlacemarkRef.current);
-
-            mapRef.current.setCenter(userCoordinates);
-            setZoom(14);
-            mapRef.current.setZoom(14);
-          }
-        },
-        (error) => {
-          console.error('Ошибка геолокации:', error);
-        }
-      );
-    }
-  };
-
   return (
     <ConstrolsStyled>
       <ControlItem>
-        <ControlButton onClick={handleLocateUser}>
+        <ControlButton onClick={() => handleLocateUser(mapRef, userPlacemarkRef)}>
           <ControlIcon>
             <Icons.Location />
           </ControlIcon>

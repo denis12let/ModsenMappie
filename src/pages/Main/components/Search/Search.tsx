@@ -1,16 +1,31 @@
 import { FC, ReactNode, useState } from 'react';
-import { Button, Input, Text } from '@ui';
+import { Input, Text } from '@ui';
 import { InputRadius, InputWrapper, SearchBox } from './Search.style';
 import { SearchList } from './components';
-import { Icons } from '@assets/icons';
+import { useMapContext } from '@context/MapContext';
 
 interface SearchProps {
   children: ReactNode;
 }
 
 const Search: FC<SearchProps> = ({ children }) => {
-  const [value, setValue] = useState('');
-  console.log(value);
+  const [radius, setRadius] = useState('5');
+  const { mapRef, userPlacemarkRef } = useMapContext();
+  console.log(mapRef.current);
+
+  const handleRadiusChange = (value: string) => {
+    const newRadius = Number(value);
+    setRadius(String(newRadius));
+
+    const userCoordinates = userPlacemarkRef.current?.geometry?.getCoordinates();
+
+    if (mapRef.current?.radius && userCoordinates) {
+      const radiusInMeters = newRadius * 1000;
+
+      mapRef.current.radius.geometry?.setCoordinates(userCoordinates);
+      mapRef.current.radius.geometry?.setRadius(radiusInMeters);
+    }
+  };
 
   return (
     <>
@@ -21,7 +36,7 @@ const Search: FC<SearchProps> = ({ children }) => {
       <Text variation="topic">В радиусе</Text>
       <InputWrapper>
         <InputRadius>
-          <Input text={value} setText={setValue} />
+          <Input text={radius} setText={handleRadiusChange} type="number" />
         </InputRadius>
         <Text variation="title">км</Text>
       </InputWrapper>

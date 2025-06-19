@@ -1,5 +1,5 @@
-import { Suspense, useCallback, useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Suspense, useCallback } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import { AppRoutesProps, routes } from '@router';
 
@@ -14,8 +14,6 @@ export const AppRouter = () => {
     );
     return <Route key={router.path} element={element} path={router.path}></Route>;
   }, []);
-
-  const par = useLocation();
 
   return (
     <Routes>

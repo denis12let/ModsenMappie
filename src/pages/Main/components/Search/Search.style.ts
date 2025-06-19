@@ -25,6 +25,7 @@ export const InputRadius = styled.div`
   width: 100%;
   height: 100%;
   & input {
-    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md}
+      ${({ theme }) => theme.spacing.xl};
   }
 `;

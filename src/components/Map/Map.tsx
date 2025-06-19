@@ -1,15 +1,22 @@
 import { useMapContext } from '@context/MapContext';
 import { useGeolocation } from '@hooks/useGeolocation';
-import React, { useEffect, useRef } from 'react';
+import { handleLocateUser } from '@utils/mapControls';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface MapProps {
   apiKey: string;
   center: [number, number];
 }
+interface ExtendedMap extends ymaps.Map {
+  radius?: ymaps.Circle;
+}
 
 export const Map: React.FC<MapProps> = ({ apiKey, center }) => {
   const { coordinates, error } = useGeolocation();
   const { mapRef, zoom, userPlacemarkRef } = useMapContext();
+
+  // const [radius, setRadius] = useState(10000);
+  // const circleRef = useRef<ymaps.Circle | null>(null);
 
   useEffect(() => {
     const loadYandexMaps = () => {
@@ -30,6 +37,24 @@ export const Map: React.FC<MapProps> = ({ apiKey, center }) => {
           center: center,
           zoom: zoom,
         });
+
+        const circle = new window.ymaps.Circle(
+          [[53.9, 27.5667], 5000],
+          {},
+          {
+            draggable: false,
+            fillColor: '#5E7BC7',
+            fillOpacity: 0.1,
+            strokeColor: '#5E7BC7',
+            strokeOpacity: 0.2,
+            strokeWidth: 3,
+            strokeStyle: {
+              style: 'dash',
+            },
+          }
+        );
+
+        mapRef.current.radius = circle;
 
         if (coordinates) {
           const userPlacemark = new window.ymaps.Placemark(coordinates, {
@@ -55,6 +80,9 @@ export const Map: React.FC<MapProps> = ({ apiKey, center }) => {
         });
 
         mapRef.current.geoObjects.add(placemark);
+        mapRef.current.geoObjects.add(circle);
+
+        handleLocateUser(mapRef, userPlacemarkRef);
 
         return () => {
           if (mapRef.current) {
