@@ -1,13 +1,21 @@
-import { FC, ReactNode } from 'react';
-import { SearchItemStyled } from './SearchItem.style';
-import { Icons } from '@assets/icons';
+import { FC } from 'react';
+import { SearchItemImg, SearchItemStyled } from './SearchItem.style';
 import { Text } from '@ui';
+import { Mark } from 'src/types';
 
-export const SearchItem: FC = () => {
+interface SearchItemProps {
+  mark: Mark;
+  isActive: boolean;
+  toggleIcon: () => void;
+}
+
+export const SearchItem: FC<SearchItemProps> = ({ mark, isActive, toggleIcon }) => {
   return (
-    <SearchItemStyled>
-      <Icons.Architecture1 />
-      <Text variation="title">Архитектура</Text>
+    <SearchItemStyled onClick={toggleIcon} isActive={isActive}>
+      <SearchItemImg>
+        <img src={mark.path} alt="иконка" />
+      </SearchItemImg>
+      <Text variation="title">{mark.name}</Text>
     </SearchItemStyled>
   );
 };

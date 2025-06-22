@@ -1,7 +1,8 @@
+import { ExtendedMap } from '@context/MapContext';
 import { MutableRefObject } from 'react';
-import ymaps, { Placemark } from 'yandex-maps';
+import { Placemark } from 'yandex-maps';
 
-export const handleLocateUser = (mapRef: MutableRefObject<ymaps.Map | null>, userPlacemarkRef: MutableRefObject<Placemark | null>) => {
+export const handleLocateUser = (mapRef: MutableRefObject<ExtendedMap | null>, userPlacemarkRef: MutableRefObject<Placemark | null>) => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -25,6 +26,8 @@ export const handleLocateUser = (mapRef: MutableRefObject<ymaps.Map | null>, use
           mapRef.current.geoObjects.add(userPlacemarkRef.current);
 
           mapRef.current.setCenter(userCoordinates);
+
+          mapRef.current.radius?.geometry?.setCoordinates(userCoordinates);
         }
       },
       (error) => {

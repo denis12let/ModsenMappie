@@ -5,5 +5,6 @@ export const SearchListStyled = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  gap: ${({ theme }) => theme.spacing.md};
+  max-height: 470px;
+  overflow: auto;
 `;
