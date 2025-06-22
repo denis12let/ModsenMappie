@@ -17,11 +17,7 @@ export const NavBar: FC = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setElement(
-          <Button onClick={userSignOut}>
-            <Icons.Bed1 />
-          </Button>
-        );
+        setElement(<Button onClick={userSignOut} children={undefined}></Button>);
       } else {
         setElement(
           <NavLink to={APP_ROUTES_PATH.AUTH}>

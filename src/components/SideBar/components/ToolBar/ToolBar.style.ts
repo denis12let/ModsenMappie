@@ -29,19 +29,3 @@ export const ToolBarInner = styled.div`
 
   background: ${({ theme }) => theme.colors.white};
 `;
-
-export const ToolBarSearch = styled.div`
-  position: relative;
-  height: 60px;
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
-  & input {
-    padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.xxxl}`};
-  }
-`;
-
-export const ToolBarSearchIcon = styled.div`
-  position: absolute;
-
-  top: ${({ theme }) => theme.spacing.md};
-  left: ${({ theme }) => theme.spacing.xl};
-`;

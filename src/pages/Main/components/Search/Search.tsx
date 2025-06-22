@@ -1,10 +1,13 @@
-import { FC, ReactNode, useState } from 'react';
-import { Input, Text } from '@ui';
-import { InputRadius, InputWrapper, SearchBox } from './Search.style';
+import { FC, ReactNode, useEffect, useState } from 'react';
+import { Button, Input, Text } from '@ui';
+import { ButtonStyled, InputRadius, InputWrapper, SearchBox, SearchIcon, SearchStyled } from './Search.style';
 import { SearchList } from './components';
 import { useMapContext } from '@context/MapContext';
 import { searchWithLeaflet } from '@api/leaflet';
 import { Mark } from 'src/types';
+import { createMarks, deleteMarks } from '@utils/marks';
+import { Icons } from '@assets/icons';
+import { theme } from '@styles/theme';
 
 interface SearchProps {
   children: ReactNode;
@@ -13,8 +16,14 @@ interface SearchProps {
 const Search: FC<SearchProps> = ({ children }) => {
   const [radius, setRadius] = useState('5');
   const [foundPlaces, setFoundPlaces] = useState<any[]>([]);
+  const [value, setValue] = useState('');
+
   const { mapRef, userPlacemarkRef } = useMapContext();
   const [icons, setIcons] = useState<Mark[]>([]);
+
+  useEffect(() => {
+    handleRadiusChange(radius);
+  }, [icons]);
 
   const handleRadiusChange = async (value: string) => {
     const newRadius = Number(value);
@@ -24,25 +33,16 @@ const Search: FC<SearchProps> = ({ children }) => {
 
     mapRef.current?.radius?.geometry?.setCoordinates(userCoords);
     mapRef.current?.radius?.geometry?.setRadius(newRadius * 1000);
-    for (let icon of icons) {
-      if (userCoords) {
-        const places = await searchWithLeaflet(userCoords, newRadius, ['']);
-        setFoundPlaces(places);
 
-        places.forEach((place) => {
-          const placemark = new window.ymaps.Placemark(
-            place.coordinates,
-            {},
-            {
-              iconLayout: 'default#image',
-              iconImageHref: 'src/assets/icons/coffee.svg',
-              iconImageSize: [40, 40],
-              iconImageOffset: [-20, -20],
-            }
-          );
+    if (mapRef) {
+      deleteMarks(mapRef);
+    }
 
-          mapRef?.current?.geoObjects.add(placemark);
-        });
+    if (userCoords) {
+      const places = await searchWithLeaflet(userCoords, newRadius, icons);
+      setFoundPlaces(places);
+      if (mapRef) {
+        createMarks(places, mapRef);
       }
     }
   };
@@ -50,10 +50,14 @@ const Search: FC<SearchProps> = ({ children }) => {
   const toggleIcon = (item: Mark) => {
     setIcons((prev) => (prev.some((icon) => item.name === icon.name) ? prev.filter((icon) => icon.name !== item.name) : [...prev, item]));
   };
-  console.log(icons);
-  console.log(foundPlaces);
   return (
     <>
+      <SearchStyled>
+        <Input text={value} setText={setValue} placeholder="Место, адрес.." />
+        <SearchIcon>
+          <Icons.Search />
+        </SearchIcon>
+      </SearchStyled>
       <Text variation="topic">Искать:</Text>
       <SearchBox>
         <SearchList toggleIcon={toggleIcon} activeIcons={icons} />
@@ -65,6 +69,11 @@ const Search: FC<SearchProps> = ({ children }) => {
         </InputRadius>
         <Text variation="title">км</Text>
       </InputWrapper>
+      <ButtonStyled>
+        <Button>
+          <Icons.Search color={theme.colors.white} />
+        </Button>
+      </ButtonStyled>
     </>
   );
 };
