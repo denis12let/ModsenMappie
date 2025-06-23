@@ -25,6 +25,10 @@ export const NavBarWrapper = styled.div`
 
   z-index: 100;
   background-color: ${({ theme }) => theme.colors.white};
+
+  & button {
+    max-height: 50px;
+  }
 `;
 
 export const NavBarInner = styled.div`

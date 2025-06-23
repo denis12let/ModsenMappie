@@ -6,6 +6,7 @@ import { Logo } from './Logo';
 import { Minus } from './Minus';
 import { Plus } from './Plus';
 import { Search } from './Search';
+import { User } from './User';
 
 export const Icons = {
   Logo,
@@ -18,4 +19,6 @@ export const Icons = {
   Plus,
   Minus,
   Location,
+
+  User,
 };

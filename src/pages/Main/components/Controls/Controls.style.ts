@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const ConstrolsStyled = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.sm};
-  max-width: 140px;
+  align-items: center;
+  max-width: 540px;
   width: 100%;
 
   right: 20px;
-  bottom: 20px;a
+  bottom: 20px;
   z-index: 100;
   position: absolute;
 `;
@@ -50,4 +51,12 @@ export const Line = styled.div`
   background-color: ${({ theme }) => theme.colors.gray_light_light};
   border-radius: ${({ theme }) => theme.border.borderRadius.md};
   opacity: 0.5;
+`;
+
+export const DistantionStyled = styled.div`
+  max-width: 400px;
+  width: 100%;
+  flex-shrink: 0;
+  height: 115px;
+  background-color: ${({ theme }) => theme.colors.white};
 `;

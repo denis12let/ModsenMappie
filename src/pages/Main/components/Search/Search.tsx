@@ -7,7 +7,7 @@ import { Mark } from 'src/types';
 import { createMarks, deleteMarks } from '@utils/marks';
 import { Icons } from '@assets/icons';
 import { theme } from '@styles/theme';
-import { useDebounce } from '@hooks/UseDebounce';
+import { useDebounce } from '@hooks/useDebounce';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { placesActions } from '@store/slices';
@@ -26,42 +26,7 @@ const Search: FC = () => {
   const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
 
   const debouncedRadius = useDebounce(radius, 500);
-
-  mapRef.current?.events.add('click', (e) => {
-    const startCoord = userPlacemarkRef.current?.geometry?.getCoordinates();
-    const endCoord = e.get('coords');
-
-    if (mapRef.current?.route) {
-      mapRef.current.geoObjects.remove(mapRef.current.route);
-    }
-
-    const multiRoute = new window.ymaps.multiRouter.MultiRoute(
-      {
-        referencePoints: [startCoord, endCoord],
-        params: {
-          routingMode: 'auto',
-        },
-      },
-      {
-        boundsAutoApply: true,
-        wayPointVisible: false,
-        routeActiveStrokeWidth: 10,
-        routeActiveStrokeColor: '#000000',
-      }
-    );
-
-    mapRef.current?.geoObjects.add(multiRoute);
-    mapRef.current!.route = multiRoute;
-
-    multiRoute.model.events.add('requestsuccess', function () {
-      const activeRoute = multiRoute.getActiveRoute();
-      console.log('Длина туда', activeRoute.properties.get('distance').text);
-      console.log('Время тоже туда', activeRoute.properties.get('duration').text);
-    });
-
-    mapRef.current?.geoObjects.add(multiRoute);
-    mapRef.current!.route = multiRoute;
-  });
+  console.log(11);
 
   useEffect(() => {
     handleSearch();

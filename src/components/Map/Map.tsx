@@ -85,7 +85,7 @@ export const Map: React.FC<MapProps> = ({ apiKey, center }) => {
 
         mapRef.current.events.add('click', (e) => {
           const coords = e.get('coords');
-          console.log('Клик по карте. Координаты:', coords);
+          console.log('Координаты:', coords);
         });
 
         handleLocateUser(mapRef, userPlacemarkRef);

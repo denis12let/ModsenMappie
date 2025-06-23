@@ -1,8 +1,5 @@
 import { FC, ReactNode, useState } from 'react';
 
-import { Input, Text } from '@ui';
-import { Icons } from '@assets';
-
 import { ToolBarInner, ToolBarWrapper } from './ToolBar.style';
 import { ToolButton } from './components/ToolButton';
 
