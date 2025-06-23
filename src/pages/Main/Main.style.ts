@@ -5,4 +5,5 @@ export const MainStyled = styled.div`
   display: flex;
   height: 100vh;
   width: 100vw;
+  z-index: 100000;
 `;

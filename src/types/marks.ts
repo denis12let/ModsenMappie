@@ -13,3 +13,9 @@ export interface PlaceResult {
   subtype: string;
   icons: Mark[];
 }
+
+export interface PlaceData {
+  address: string;
+  coordinates: [number, number];
+  details?: any;
+}

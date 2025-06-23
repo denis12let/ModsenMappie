@@ -36,6 +36,7 @@ export const Map: React.FC<MapProps> = ({ apiKey, center }) => {
         mapRef.current = new window.ymaps.Map('map', {
           center: center,
           zoom: zoom,
+          behaviors: ['default', 'multiTouch', 'scrollZoom', 'drag'],
         });
 
         const circle = new window.ymaps.Circle(
@@ -81,6 +82,11 @@ export const Map: React.FC<MapProps> = ({ apiKey, center }) => {
 
         mapRef.current.geoObjects.add(placemark);
         mapRef.current.geoObjects.add(circle);
+
+        mapRef.current.events.add('click', (e) => {
+          const coords = e.get('coords');
+          console.log('Клик по карте. Координаты:', coords);
+        });
 
         handleLocateUser(mapRef, userPlacemarkRef);
 

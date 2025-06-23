@@ -3960,6 +3960,11 @@ yaml@^2.4.2, yaml@^2.8.0:
   resolved "https://registry.npmjs.org/yaml/-/yaml-2.8.0.tgz"
   integrity sha512-4lLa/EcQCB0cJkyts+FpIRx5G/llPxfP6VQU5KByHEhLxY3IJCH0f0Hy1MHI8sClTvsIb8qwRJ6R/ZdlDJ/leQ==
 
+yandex-maps@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/yandex-maps/-/yandex-maps-0.0.1.tgz"
+  integrity sha512-7gW254ut4HEpSyQEaztSB4lZiuIz/DtS4jvfbJJWHxpuztMNZtYmSVBqhGRSaBgESe8f6T7/fAtEO/FkRHzdXQ==
+
 yargs-parser@^21.1.1:
   version "21.1.1"
   resolved "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz"

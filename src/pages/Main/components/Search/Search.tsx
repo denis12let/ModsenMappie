@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 import { Button, Input, Text } from '@ui';
 import { ButtonStyled, InputRadius, InputWrapper, SearchBox, SearchIcon, SearchStyled } from './Search.style';
 import { SearchList } from './components';
@@ -8,6 +8,7 @@ import { Mark } from 'src/types';
 import { createMarks, deleteMarks } from '@utils/marks';
 import { Icons } from '@assets/icons';
 import { theme } from '@styles/theme';
+import { useDebounce } from '@hooks/UseDebounce';
 
 interface SearchProps {
   children: ReactNode;
@@ -21,35 +22,72 @@ const Search: FC<SearchProps> = ({ children }) => {
   const { mapRef, userPlacemarkRef } = useMapContext();
   const [icons, setIcons] = useState<Mark[]>([]);
 
-  useEffect(() => {
-    handleRadiusChange(radius);
-  }, [icons]);
+  // mapRef.current?.events.add('click', (e) => {
+  //   const startPoint = userPlacemarkRef.current?.geometry?.getCoordinates();
+  //   const endPoint = e.get('coords');
 
-  const handleRadiusChange = async (value: string) => {
-    const newRadius = Number(value);
-    setRadius(value);
+  //   // Используйте ymaps.route вместо mapRef.current.route
+  //   const router = window.ymaps.route([startPoint, endPoint], {
+  //     mapStateAutoApply: true, // Автоматическое масштабирование
+  //   });
+
+  //   router
+  //     .then((route) => {
+  //       mapRef.current?.geoObjects.add(route);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Ошибка при создании маршрута:', error);
+  //     });
+  // });
+
+  const debouncedRadius = useDebounce(radius, 500);
+
+  const handleSearch = useCallback(
+    async (currentRadius: number, currentIcons: Mark[], searchValue = '') => {
+      const userCoords = userPlacemarkRef.current?.geometry?.getCoordinates() as [number, number];
+
+      if (mapRef) {
+        deleteMarks(mapRef);
+      }
+
+      if (userCoords) {
+        const places = await searchWithLeaflet(userCoords, currentRadius, searchValue ? [] : currentIcons, searchValue);
+
+        setFoundPlaces(places);
+        console.log(places);
+        if (mapRef) {
+          createMarks(places, mapRef);
+        }
+      }
+    },
+    [mapRef, userPlacemarkRef]
+  );
+
+  useEffect(() => {
+    const currentRadius = Number(debouncedRadius);
+    if (currentRadius < 0) return;
 
     const userCoords = userPlacemarkRef.current?.geometry?.getCoordinates() as [number, number];
-
-    mapRef.current?.radius?.geometry?.setCoordinates(userCoords);
-    mapRef.current?.radius?.geometry?.setRadius(newRadius * 1000);
-
-    if (mapRef) {
-      deleteMarks(mapRef);
-    }
-
     if (userCoords) {
-      const places = await searchWithLeaflet(userCoords, newRadius, icons);
-      setFoundPlaces(places);
-      if (mapRef) {
-        createMarks(places, mapRef);
-      }
+      mapRef.current?.radius?.geometry?.setCoordinates(userCoords);
+      mapRef.current?.radius?.geometry?.setRadius(currentRadius * 1000);
+
+      handleSearch(currentRadius, icons);
     }
+  }, [debouncedRadius, icons, handleSearch, userPlacemarkRef, mapRef]);
+
+  const handleRadiusChange = (value: string) => {
+    setRadius(value);
+  };
+
+  const search = () => {
+    handleSearch(Number(radius), icons, value);
   };
 
   const toggleIcon = (item: Mark) => {
     setIcons((prev) => (prev.some((icon) => item.name === icon.name) ? prev.filter((icon) => icon.name !== item.name) : [...prev, item]));
   };
+
   return (
     <>
       <SearchStyled>
@@ -70,7 +108,7 @@ const Search: FC<SearchProps> = ({ children }) => {
         <Text variation="title">км</Text>
       </InputWrapper>
       <ButtonStyled>
-        <Button>
+        <Button onClick={search}>
           <Icons.Search color={theme.colors.white} />
         </Button>
       </ButtonStyled>
