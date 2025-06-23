@@ -2,9 +2,8 @@ import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { FC, ReactNode, useEffect, useState } from 'react';
 import { auth } from './../../firebase';
 import { SignUp, SignIn } from './components';
-import { AuthStyled } from './Auth.style';
-import { Button, NavLink } from '@ui';
-import { APP_ROUTES_PATH } from '@constants/app';
+import { AuthBottom, AuthStyled, ButtonWrapper } from './Auth.style';
+import { Button } from '@ui';
 import { useNavigate } from 'react-router-dom';
 
 interface AuthProps {
@@ -35,14 +34,16 @@ const Auth: FC<AuthProps> = ({ children }) => {
   }
   return (
     <AuthStyled>
-      {authUser ? <>{navigation(APP_ROUTES_PATH.SEARCH)}</> : <>{isLogIn ? <SignIn /> : <SignUp />}</>}
-      <p>
-        <span>Вы можете </span>
+      {authUser ? <>{navigation(-1)}</> : <>{isLogIn ? <SignIn /> : <SignUp />}</>}
+      <AuthBottom>
+        <p>Вы можете </p>
         <Button onClick={() => setIsLogIn(true)}>Войти</Button>
-        <span> или </span>
+        <p> или </p>
         <Button onClick={() => setIsLogIn(false)}>Зарегистрироваться</Button>
-      </p>
-      <NavLink to={APP_ROUTES_PATH.SEARCH}>Вернуться</NavLink>
+      </AuthBottom>
+      <ButtonWrapper>
+        <Button onClick={() => navigation(-1)}>Вернуться</Button>
+      </ButtonWrapper>
     </AuthStyled>
   );
 };

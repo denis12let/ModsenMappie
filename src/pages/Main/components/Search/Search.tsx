@@ -3,113 +3,138 @@ import { Button, Input, Text } from '@ui';
 import { ButtonStyled, InputRadius, InputWrapper, SearchBox, SearchIcon, SearchStyled } from './Search.style';
 import { SearchList } from './components';
 import { useMapContext } from '@context/MapContext';
-import { searchWithLeaflet } from '@api/leaflet';
 import { Mark } from 'src/types';
 import { createMarks, deleteMarks } from '@utils/marks';
 import { Icons } from '@assets/icons';
 import { theme } from '@styles/theme';
 import { useDebounce } from '@hooks/UseDebounce';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { placesActions } from '@store/slices';
+import { searchPlaces } from '@store/actions';
 
 interface SearchProps {
   children: ReactNode;
 }
 
-const Search: FC<SearchProps> = ({ children }) => {
+const Search: FC = () => {
   const [radius, setRadius] = useState('5');
-  const [foundPlaces, setFoundPlaces] = useState<any[]>([]);
-  const [value, setValue] = useState('');
-
+  const [searchQuery, setSearchQuery] = useState('');
   const { mapRef, userPlacemarkRef } = useMapContext();
-  const [icons, setIcons] = useState<Mark[]>([]);
-
-  // mapRef.current?.events.add('click', (e) => {
-  //   const startPoint = userPlacemarkRef.current?.geometry?.getCoordinates();
-  //   const endPoint = e.get('coords');
-
-  //   // Используйте ymaps.route вместо mapRef.current.route
-  //   const router = window.ymaps.route([startPoint, endPoint], {
-  //     mapStateAutoApply: true, // Автоматическое масштабирование
-  //   });
-
-  //   router
-  //     .then((route) => {
-  //       mapRef.current?.geoObjects.add(route);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Ошибка при создании маршрута:', error);
-  //     });
-  // });
+  const [selectedIcons, setSelectedIcons] = useState<Mark[]>([]);
+  const dispatch = useAppDispatch();
+  const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
 
   const debouncedRadius = useDebounce(radius, 500);
 
-  const handleSearch = useCallback(
-    async (currentRadius: number, currentIcons: Mark[], searchValue = '') => {
-      const userCoords = userPlacemarkRef.current?.geometry?.getCoordinates() as [number, number];
+  mapRef.current?.events.add('click', (e) => {
+    const startCoord = userPlacemarkRef.current?.geometry?.getCoordinates();
+    const endCoord = e.get('coords');
 
-      if (mapRef) {
-        deleteMarks(mapRef);
+    if (mapRef.current?.route) {
+      mapRef.current.geoObjects.remove(mapRef.current.route);
+    }
+
+    const multiRoute = new window.ymaps.multiRouter.MultiRoute(
+      {
+        referencePoints: [startCoord, endCoord],
+        params: {
+          routingMode: 'auto',
+        },
+      },
+      {
+        boundsAutoApply: true,
+        wayPointVisible: false,
+        routeActiveStrokeWidth: 10,
+        routeActiveStrokeColor: '#000000',
       }
+    );
 
-      if (userCoords) {
-        const places = await searchWithLeaflet(userCoords, currentRadius, searchValue ? [] : currentIcons, searchValue);
+    mapRef.current?.geoObjects.add(multiRoute);
+    mapRef.current!.route = multiRoute;
 
-        setFoundPlaces(places);
-        console.log(places);
-        if (mapRef) {
-          createMarks(places, mapRef);
-        }
-      }
-    },
-    [mapRef, userPlacemarkRef]
-  );
+    multiRoute.model.events.add('requestsuccess', function () {
+      const activeRoute = multiRoute.getActiveRoute();
+      console.log('Длина туда', activeRoute.properties.get('distance').text);
+      console.log('Время тоже туда', activeRoute.properties.get('duration').text);
+    });
+
+    mapRef.current?.geoObjects.add(multiRoute);
+    mapRef.current!.route = multiRoute;
+  });
+
+  useEffect(() => {
+    handleSearch();
+  }, [selectedIcons]);
+
+  const handleSearch = async () => {
+    if (!mapRef.current || !userPlacemarkRef.current) return;
+
+    const userCoords = userPlacemarkRef.current.geometry?.getCoordinates() as [number, number];
+    const currentRadius = Number(radius);
+
+    dispatch(placesActions.setSearchCenter(userCoords));
+    dispatch(placesActions.setSearchRadius(currentRadius));
+
+    deleteMarks(mapRef);
+    console.log(searchQuery);
+    dispatch(
+      searchPlaces({
+        center: userCoords,
+        radiusKm: currentRadius,
+        icons: selectedIcons,
+        search: searchQuery,
+      })
+    );
+  };
 
   useEffect(() => {
     const currentRadius = Number(debouncedRadius);
     if (currentRadius < 0) return;
 
-    const userCoords = userPlacemarkRef.current?.geometry?.getCoordinates() as [number, number];
-    if (userCoords) {
+    if (userPlacemarkRef.current) {
+      const userCoords = userPlacemarkRef.current.geometry?.getCoordinates() as [number, number];
       mapRef.current?.radius?.geometry?.setCoordinates(userCoords);
       mapRef.current?.radius?.geometry?.setRadius(currentRadius * 1000);
-
-      handleSearch(currentRadius, icons);
+      handleSearch();
     }
-  }, [debouncedRadius, icons, handleSearch, userPlacemarkRef, mapRef]);
+  }, [debouncedRadius, userPlacemarkRef, mapRef]);
 
-  const handleRadiusChange = (value: string) => {
-    setRadius(value);
-  };
-
-  const search = () => {
-    handleSearch(Number(radius), icons, value);
-  };
+  useEffect(() => {
+    if (foundPlaces.length > 0 && mapRef.current) {
+      createMarks(foundPlaces, mapRef);
+    }
+  }, [foundPlaces, mapRef]);
 
   const toggleIcon = (item: Mark) => {
-    setIcons((prev) => (prev.some((icon) => item.name === icon.name) ? prev.filter((icon) => icon.name !== item.name) : [...prev, item]));
+    setSelectedIcons((prev) =>
+      prev.some((icon) => item.name === icon.name) ? prev.filter((icon) => icon.name !== item.name) : [...prev, item]
+    );
   };
 
   return (
     <>
       <SearchStyled>
-        <Input text={value} setText={setValue} placeholder="Место, адрес.." />
+        <Input text={searchQuery} setText={setSearchQuery} placeholder="Место, адрес.." />
         <SearchIcon>
           <Icons.Search />
         </SearchIcon>
       </SearchStyled>
       <Text variation="topic">Искать:</Text>
       <SearchBox>
-        <SearchList toggleIcon={toggleIcon} activeIcons={icons} />
+        <SearchList toggleIcon={toggleIcon} activeIcons={selectedIcons} />
       </SearchBox>
       <Text variation="topic">В радиусе</Text>
       <InputWrapper>
         <InputRadius>
-          <Input text={radius} setText={handleRadiusChange} type="number" />
+          <Input text={radius} setText={setRadius} type="number" />
         </InputRadius>
         <Text variation="title">км</Text>
       </InputWrapper>
       <ButtonStyled>
-        <Button onClick={search}>
+        <Button onClick={handleSearch} disabled={isLoading}>
           <Icons.Search color={theme.colors.white} />
+          {isLoading ? 'Поиск...' : ''}
         </Button>
       </ButtonStyled>
     </>

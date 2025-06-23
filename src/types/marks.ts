@@ -6,6 +6,7 @@ export interface Mark {
 }
 
 export interface PlaceResult {
+  id: number;
   name: string;
   address: string;
   coordinates: [number, number];

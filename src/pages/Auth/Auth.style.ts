@@ -3,11 +3,13 @@ import styled from 'styled-components';
 export const AuthStyled = styled.div`
   display: flex;
   flex-direction: column;
+
   gap: ${({ theme }) => theme.spacing.sm};
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100vh;
+  padding: ${({ theme }) => theme.spacing.xxxxs};
   & button {
     text-decoration: underline;
   }
@@ -44,3 +46,14 @@ export const AuthCard = styled.div`
     }
   }
 `;
+
+export const AuthBottom = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xxxxs};
+  max-width: 300px;
+  width: 100%;
+  white-space: nowrap;
+`;
+
+export const ButtonWrapper = styled.span``;

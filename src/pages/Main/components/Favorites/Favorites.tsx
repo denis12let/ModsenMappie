@@ -18,7 +18,6 @@ const Favorites: FC<FavoritesProps> = ({ children }) => {
   //     const coords = e.get('coords');
 
   //     try {
-  //       // Используем API Яндекс.Карт для обратного геокодирования
   //       const res = await window.ymaps.geocode(coords);
   //       const firstGeoObject = res.geoObjects.get(0);
   //       const data = {
@@ -34,10 +33,8 @@ const Favorites: FC<FavoritesProps> = ({ children }) => {
   //     }
   //   };
 
-  //   // Добавляем обработчик
   //   mapRef.current.events.add('click', clickHandler);
 
-  //   // Убираем обработчик при размонтировании
   //   return () => {
   //     if (mapRef.current) {
   //       mapRef.current.events.remove('click', clickHandler);

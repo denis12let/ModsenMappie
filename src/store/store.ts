@@ -1,10 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-// import { imageReducer } from './reducers/imageSlice';
+import { placesReducer } from './slices';
 
 export const store = configureStore({
   reducer: {
-    // images: imageReducer,
+    places: placesReducer,
   },
 });
 

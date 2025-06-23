@@ -72,22 +72,20 @@ export const searchWithLeaflet = async (
     let query: string;
 
     if (search) {
-      // Запрос для поиска по названию
       query = `
         [out:json];
         (
           node["name"~"${search.replace(/"/g, '\\"')}",i](around:${radiusMeters},${center[0]},${center[1]});
           way["name"~"${search.replace(/"/g, '\\"')}",i](around:${radiusMeters},${center[0]},${center[1]});
           relation["name"~"${search.replace(/"/g, '\\"')}",i](around:${radiusMeters},${center[0]},${center[1]});
+          node["${search.replace(/"/g, '\\"')}"~"."](around:${radiusMeters},${center[0]},${center[1]});
         );
         out body;
         >;
         out skel qt;
       `;
     } else {
-      // Запрос для поиска по выбранным иконкам/тегам
       const queryParts = icons.map((icon) => {
-        // Для bicycle используем специальный тег
         if (icon.type === 'bicycle') {
           return `node["bicycle"~"."](around:${radiusMeters},${center[0]},${center[1]});`;
         }
@@ -104,7 +102,7 @@ export const searchWithLeaflet = async (
         out skel qt;
       `;
     }
-
+    console.log(query);
     const response = await fetch(`https://overpass-api.de/api/interpreter`, {
       method: 'POST',
       headers: {

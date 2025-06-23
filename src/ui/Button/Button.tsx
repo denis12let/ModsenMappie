@@ -6,6 +6,7 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 export const Button: FC<ButtonProps> = ({ children, ...props }) => {

@@ -3,10 +3,20 @@ import { ExtendedMap } from '@context';
 import { PlaceResult } from 'src/types';
 
 export const createMarks = (places: PlaceResult[], mapRef: React.RefObject<ExtendedMap | null>) => {
+  console.log(places);
   places.forEach((place) => {
     const placemark = new window.ymaps.Placemark(
       place.coordinates,
-      {},
+      {
+        // balloonContentHeader: place.name,
+        // balloonContentBody: `
+        //   <div>
+        //     <p>Адрес: ${place.address || 'Не указан'}</p>
+        //     <p>Тип: ${place.type}</p>
+        //   </div>
+        // `,
+        // hintContent: place.name,
+      },
       {
         iconLayout: 'default#image',
         iconImageHref: `${marks.find((item) => place.subtype === item.name)?.path}`,
@@ -17,15 +27,19 @@ export const createMarks = (places: PlaceResult[], mapRef: React.RefObject<Exten
         hasHint: true,
       }
     );
+    console.log(1);
+    placemark.events.add('click', async (e) => {
+      console.log(2);
 
-    placemark.events.add('click', function (e) {
-      console.log(e.get('coords'));
+      const address = await reverseGeocode(e.get('coords'));
+
+      console.log(address);
     });
 
-    // placemark.events.add('click', (e) => {
-    //   const coords = e.get('coords');
-    //   console.log('Клик по карте. Координаты:', coords);
-    // });
+    placemark.events.add('click', (e) => {
+      const coords = e.get('coords');
+      console.log('Координаты:', coords);
+    });
 
     mapRef?.current?.geoObjects.add(placemark);
   });
@@ -43,4 +57,24 @@ export const deleteMarks = (mapRef: React.RefObject<ExtendedMap | null>) => {
       geoObjects.remove(geoObjects.get(i));
     }
   }
+};
+
+export const reverseGeocode = (coords: [number, number]): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    window.ymaps
+      .geocode(coords, { results: 1 })
+      .then((res: any) => {
+        const firstGeoObject = res.geoObjects.get(0);
+        if (firstGeoObject) {
+          console.log(9);
+          const address = firstGeoObject.getAddressLine();
+          resolve(address || 'Адрес не найден');
+        } else {
+          resolve('Адрес не найден');
+        }
+      })
+      .catch((err: Error) => {
+        reject('Ошибка геокодирования');
+      });
+  });
 };

@@ -6,9 +6,8 @@ import axios from 'axios';
 export const apiService = axios.create({
   baseURL: LEAFLET_API,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
     'Access-Control-Allow-Origin': '*',
-    Accept: 'application/json',
   },
 });
 
