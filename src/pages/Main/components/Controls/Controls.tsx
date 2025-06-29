@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import { ConstrolsStyled, ControlButton, ControlIcon, ControlItem, DistantionStyled, Line } from './Controls.style';
+import { FC } from 'react';
+import { ConstrolsStyled, ControlButton, ControlIcon, ControlItem, RouteStyled, Line, RouteRow } from './Controls.style';
 import { Icons } from '@assets/icons';
 import { useMapContext, useRouteContext } from '@context';
 import { handleLocateUser } from '@utils/map';
@@ -18,10 +18,16 @@ export const Controls: FC = () => {
 
   return (
     <ConstrolsStyled>
-      <DistantionStyled>
-        <div>Дистанция: {distantion}</div>
-        <div>Время: {time}</div>
-      </DistantionStyled>
+      <RouteStyled>
+        <RouteRow>
+          <span> {distantion}</span>
+          <p>дистанция</p>
+        </RouteRow>
+        <RouteRow>
+          <span> {time}</span>
+          <p>время</p>
+        </RouteRow>
+      </RouteStyled>
       <ControlItem>
         <ControlButton onClick={() => handleLocateUser(mapRef, userPlacemarkRef)}>
           <ControlIcon>

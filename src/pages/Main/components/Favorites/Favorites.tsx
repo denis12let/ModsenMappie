@@ -1,23 +1,31 @@
-import { Input, Text } from '@ui';
+import { Input } from '@ui';
 import { FC, lazy, ReactNode, useEffect, useState } from 'react';
 import { FavoriteDetailItem, FavoritesList } from './components';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { useNavigate } from 'react-router-dom';
-import { APP_ROUTES_PATH } from '@constants/app';
-import { FavoritesTitle, FavoritesWrapper, SearchIcon, SearchStyled } from './Favorites.style';
+import { FavoritesWrapper, SearchIcon, SearchStyled } from './Favorites.style';
 import { Icons } from '@assets/icons';
-
-interface FavoritesProps {
-  children: ReactNode;
-}
+import { useDebounce } from '@hooks/useDebounce';
 
 export const FavoritesAsync = lazy(() => import('./Favorites'));
 
-const Favorites: FC<FavoritesProps> = ({ children }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const Favorites: FC = () => {
+  const { place, favorites } = useAppSelector((state) => state.places);
 
-  const { place, favorites, isLoading } = useAppSelector((state) => state.places);
+  const [filteredFavorites, setFilteredFavorites] = useState(favorites);
+  const [value, setValue] = useState('');
+
+  const debouncedSearch = useDebounce(value, 400);
+
+  useEffect(() => {
+    if (debouncedSearch) {
+      const searchTerm = debouncedSearch.toLowerCase();
+      const filtered = favorites.filter((favorite) => favorite.name.toLowerCase().includes(searchTerm));
+
+      setFilteredFavorites(filtered);
+    } else {
+      setFilteredFavorites(favorites);
+    }
+  }, [debouncedSearch, favorites]);
 
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
@@ -26,12 +34,12 @@ const Favorites: FC<FavoritesProps> = ({ children }) => {
   return (
     <FavoritesWrapper>
       <SearchStyled>
-        <Input text={searchQuery} setText={setSearchQuery} placeholder="Место, адрес.." />
+        <Input text={value} setText={setValue} placeholder="Место, адрес.." />
         <SearchIcon>
           <Icons.Search />
         </SearchIcon>
       </SearchStyled>
-      {place ? <FavoriteDetailItem place={place} /> : <FavoritesList favorites={favorites} />}
+      {place ? <FavoriteDetailItem place={place} /> : <FavoritesList favorites={filteredFavorites} />}
     </FavoritesWrapper>
   );
 };

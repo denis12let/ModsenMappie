@@ -10,6 +10,7 @@ declare module 'styled-components' {
       blue: string;
       red: string;
       gray: string;
+      blue_dark: string;
     };
     fonts: {
       primary: string;
@@ -20,6 +21,7 @@ declare module 'styled-components' {
       md: string;
       lg: string;
       xl: string;
+      xxl: string;
     };
     fontWeights: {
       extraLight: number;
@@ -27,6 +29,7 @@ declare module 'styled-components' {
       regular: number;
       semiBold: number;
       bold: number;
+      extraBold: number;
     };
     spacing: {
       xs: string;

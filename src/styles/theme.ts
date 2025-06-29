@@ -6,6 +6,7 @@ export const theme = {
     blue: '#5E7BC7',
     red: '#C75E5E',
     gray: '#808080',
+    blue_dark: '#405f7b',
   },
   fonts: {
     primary: 'Mont, sans-serif',
@@ -16,6 +17,7 @@ export const theme = {
     md: '14px',
     lg: '16px',
     xl: '20px',
+    xxl: '24px',
   },
   fontWeights: {
     extraLight: 300,
@@ -23,6 +25,7 @@ export const theme = {
     regular: 400,
     semiBold: 600,
     bold: 700,
+    extraBold: 700,
   },
   spacing: {
     xs: '5px',

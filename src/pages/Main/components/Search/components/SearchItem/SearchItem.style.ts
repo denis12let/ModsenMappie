@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface SearchItemStyledProps {
-  isActive: boolean;
+  isactive: string;
 }
 
 export const SearchItemStyled = styled.div<SearchItemStyledProps>`
@@ -11,7 +11,7 @@ export const SearchItemStyled = styled.div<SearchItemStyledProps>`
 
   align-items: center;
 
-  opacity: ${({ isActive }) => (!isActive ? 0.6 : 1)};
+  opacity: ${({ isactive }) => (!JSON.parse(isactive) ? 0.6 : 1)};
 
   cursor: pointer;
   &:last-child {

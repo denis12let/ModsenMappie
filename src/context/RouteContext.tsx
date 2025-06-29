@@ -9,8 +9,8 @@ interface RouteContextType {
 const RouteContext = createContext<RouteContextType | null>(null);
 
 export const RouteProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [distantion, setDistantion] = useState('');
-  const [time, setTime] = useState('');
+  const [distantion, setDistantion] = useState('0 км');
+  const [time, setTime] = useState('0 мин');
 
   const setRouteInfo = (dist: string, t: string) => {
     setDistantion(dist);

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export interface ToolbarCloseButtonIconProps {
-  isOpen: boolean;
+  isopen: string;
 }
 
 export const ToolbarCloseContainer = styled.div`
@@ -32,7 +32,7 @@ export const ToolbarCloseButton = styled.button`
 `;
 
 export const ToolbarCloseButtonIcon = styled.div<ToolbarCloseButtonIconProps>`
-  transform: ${({ isOpen }) => (isOpen ? '' : `rotate(${180}deg)`)};
+  transform: ${({ isopen }) => (Boolean(isopen) ? '' : `rotate(${180}deg)`)};
   transition: all ${({ theme }) => theme.transition.medium};
   transform-origin: center center;
   flex-grow: 0;

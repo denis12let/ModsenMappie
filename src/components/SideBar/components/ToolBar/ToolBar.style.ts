@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export interface ToolbarWrapperProps {
-  isOpen: boolean;
+  isopen: string;
 }
 
 export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
@@ -12,7 +12,7 @@ export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
   top: 0;
   height: 100%;
 
-  transform: ${({ isOpen }) => (isOpen ? '' : `translateX(-${400}px)`)};
+  transform: ${({ isopen }) => (JSON.parse(isopen) ? '' : `translateX(-${400}px)`)};
   transition: all ${({ theme }) => theme.transition.medium};
 
   position: absolute;
@@ -20,7 +20,7 @@ export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
   @media ${({ theme }) => theme.media.mob} {
     left: 70px;
 
-    transform: ${({ isOpen }) => (isOpen ? '' : `translateX(-${400}px)`)};
+    transform: ${({ isopen }) => (JSON.parse(isopen) ? '' : `translateX(-${400}px)`)};
   }
 `;
 

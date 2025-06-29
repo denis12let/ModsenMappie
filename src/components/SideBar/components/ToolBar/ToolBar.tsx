@@ -11,7 +11,7 @@ export const ToolBar: FC<ToolBarProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <ToolBarWrapper isOpen={isOpen}>
+    <ToolBarWrapper isopen={isOpen.toString()}>
       <ToolBarInner>{children}</ToolBarInner>
       <ToolButton isOpen={isOpen} setIsOpen={setIsOpen} />
     </ToolBarWrapper>

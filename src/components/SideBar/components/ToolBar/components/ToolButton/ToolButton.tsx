@@ -14,7 +14,7 @@ export const ToolButton: FC<ToolButtonProps> = ({ isOpen, setIsOpen }) => {
     <ToolbarCloseContainer>
       <ToolbarCloseBlock />
       <ToolbarCloseButton onClick={() => setIsOpen(!isOpen)}>
-        <ToolbarCloseButtonIcon isOpen={isOpen}>
+        <ToolbarCloseButtonIcon isopen={isOpen.toString()}>
           <Icons.Arrow />
         </ToolbarCloseButtonIcon>
       </ToolbarCloseButton>

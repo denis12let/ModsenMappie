@@ -4,13 +4,15 @@ export const ConstrolsStyled = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.sm};
   align-items: center;
-  max-width: 540px;
-  width: 100%;
 
   right: 20px;
   bottom: 20px;
-  z-index: 100;
+  z-index: 40;
   position: absolute;
+  @media (max-width: 700px) {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
 `;
 
 export const ControlItem = styled.div`
@@ -53,10 +55,33 @@ export const Line = styled.div`
   opacity: 0.5;
 `;
 
-export const DistantionStyled = styled.div`
-  max-width: 400px;
-  width: 100%;
+export const RouteStyled = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
   flex-shrink: 0;
-  height: 115px;
+  height: 100px;
   background-color: ${({ theme }) => theme.colors.white};
+
+  box-shadow: 0px 4px 14px 0px rgba(44, 44, 44, 0.09);
+  border-radius: ${({ theme }) => theme.border.borderRadius.md};
+  padding: ${({ theme }) => theme.spacing.md};
+`;
+
+export const RouteRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & span {
+    color: ${({ theme }) => theme.colors.blue_dark};
+    font-size: ${({ theme }) => theme.fontSizes.xxl};
+    font-weight: ${({ theme }) => theme.fontWeights.extraBold};
+  }
+
+  & p {
+    color: ${({ theme }) => theme.colors.blue_dark};
+    font-size: ${({ theme }) => theme.fontSizes.lg};
+    font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+  }
 `;

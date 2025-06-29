@@ -11,7 +11,7 @@ interface SearchItemProps {
 
 export const SearchItem: FC<SearchItemProps> = ({ mark, isActive, toggleIcon }) => {
   return (
-    <SearchItemStyled onClick={toggleIcon} isActive={isActive}>
+    <SearchItemStyled onClick={toggleIcon} isactive={isActive.toString()}>
       <SearchItemImg>
         <img src={mark.path} alt="иконка" />
       </SearchItemImg>
