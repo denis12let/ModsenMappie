@@ -1,14 +1,11 @@
 import React, { createContext, useContext, useRef, useState } from 'react';
-
-export interface ExtendedMap extends ymaps.Map {
-  radius?: ymaps.Circle;
-}
+import { ExtendedMap, IMap, IPlaceMark } from 'src/types';
 
 interface MapContextType {
-  mapRef: React.RefObject<ExtendedMap | null>;
+  mapRef: IMap;
   zoom: number;
   setZoom: React.Dispatch<React.SetStateAction<number>>;
-  userPlacemarkRef: React.MutableRefObject<ymaps.Placemark | null>;
+  userPlacemarkRef: IPlaceMark;
 }
 
 const MapContext = createContext<MapContextType | undefined>(undefined);

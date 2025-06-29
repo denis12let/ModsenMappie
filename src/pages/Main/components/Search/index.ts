@@ -1,5 +1,3 @@
-import { SearchAsync } from './Search.async';
-
-export { SearchAsync as Search };
+export { SearchAsync as Search } from './Search';
 
 export * from './components';

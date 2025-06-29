@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, lazy, useEffect, useState } from 'react';
 import { Button, Input, Text } from '@ui';
 import { ButtonStyled, InputRadius, InputWrapper, SearchBox, SearchIcon, SearchStyled } from './Search.style';
 import { SearchList } from './components';
@@ -14,6 +14,8 @@ import { placesActions, placesReducer } from '@store/slices';
 import { searchPlaces } from '@store/actions';
 import { useNavigate } from 'react-router-dom';
 import { APP_ROUTES_PATH } from '@constants/app';
+
+export const SearchAsync = lazy(() => import('./Search'));
 
 const Search: FC = () => {
   const navigation = useNavigate();

@@ -1,8 +1,6 @@
 import { LEAFLET_API } from '@constants/api';
 import axios from 'axios';
 
-// import { BASE_URL, ACCESS_KEY } from '@constants/api';
-
 export const apiService = axios.create({
   baseURL: LEAFLET_API,
   headers: {
@@ -10,11 +8,3 @@ export const apiService = axios.create({
     'Access-Control-Allow-Origin': '*',
   },
 });
-
-// apiService.interceptors.request.use((config) => {
-//   config.params = {
-//     ...config.params,
-//     client_id: ACCESS_KEY,
-//   };
-//   return config;
-// });

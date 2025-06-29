@@ -1,23 +1,20 @@
-import { FC, ReactNode, useRef } from 'react';
-
-import { SideBar } from '@components';
-import { Map } from '@components';
-import { MainStyled } from './Main.style';
-import { Controls } from './components';
+import { lazy } from 'react';
 import { Outlet } from 'react-router-dom';
 
-interface MainProps {
-  children: ReactNode;
-}
-const Main: FC<MainProps> = ({ children }) => {
-  const apiKey = import.meta.env.VITE_API_KEY || '';
+import { Map, SideBar } from '@components';
+import { Controls } from './components';
 
+import { MainStyled } from './Main.style';
+
+export const MainAsync = lazy(() => import('./Main'));
+
+const Main = () => {
   return (
     <MainStyled>
       <SideBar>
         <Outlet />
       </SideBar>
-      <Map apiKey={apiKey} center={[1, 1]} />
+      <Map center={[55.755864, 37.617698]} />
       <Controls />
     </MainStyled>
   );

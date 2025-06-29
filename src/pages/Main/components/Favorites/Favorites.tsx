@@ -1,5 +1,5 @@
 import { Text } from '@ui';
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, lazy, ReactNode, useEffect } from 'react';
 import { FavoriteDetailItem, FavoritesList } from './components';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { useAppDispatch } from '@hooks/useAppDispatch';
@@ -7,6 +7,8 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 interface FavoritesProps {
   children: ReactNode;
 }
+
+export const FavoritesAsync = lazy(() => import('./Favorites'));
 
 const Favorites: FC<FavoritesProps> = ({ children }) => {
   const dispatch = useAppDispatch();

@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { ConstrolsStyled, ControlButton, ControlIcon, ControlItem, DistantionStyled, Line } from './Controls.style';
 import { Icons } from '@assets/icons';
 import { useMapContext } from '@context';
-import { handleLocateUser } from '@utils/mapControls';
+import { handleLocateUser } from '@utils/map';
 
 export const Controls: FC = () => {
   const { mapRef, zoom, setZoom, userPlacemarkRef } = useMapContext();

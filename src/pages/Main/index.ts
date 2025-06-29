@@ -1,5 +1,2 @@
-import { MainAsync } from './Main.async';
-
-export { MainAsync as Main };
-
 export * from './components';
+export { MainAsync as Main } from './Main';

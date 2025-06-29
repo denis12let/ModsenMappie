@@ -1,5 +1,3 @@
-import { AuthAsync } from './Auth.async';
-
-export { AuthAsync as Auth };
+export { AuthAsync as Auth } from './Auth';
 
 export * from './components';

@@ -1,5 +1,5 @@
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, lazy, ReactNode, useEffect, useState } from 'react';
 import { auth } from './../../firebase';
 import { SignUp, SignIn } from './components';
 import { AuthBottom, AuthStyled, ButtonWrapper } from './Auth.style';
@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 interface AuthProps {
   children: ReactNode;
 }
+
+export const AuthAsync = lazy(() => import('./Auth'));
 
 const Auth: FC<AuthProps> = ({ children }) => {
   const [authUser, setAuthUser] = useState<User | null>(null);
