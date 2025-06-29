@@ -84,3 +84,47 @@ export const createMap = (center: number[], zoom: number) => {
 
   return map;
 };
+
+export const createRoute = (
+  mapRef: IMap,
+  userPlacemarkRef: IPlaceMark,
+  endCoord: number[],
+  setRouteInfo: (distance: string, time: string) => void
+) => {
+  const startCoord = userPlacemarkRef.current?.geometry?.getCoordinates();
+
+  if (mapRef.current?.route) {
+    mapRef.current.geoObjects.remove(mapRef.current.route);
+  }
+
+  const multiRoute = new window.ymaps.multiRouter.MultiRoute(
+    {
+      referencePoints: [startCoord!, endCoord],
+      params: {
+        routingMode: 'auto',
+      },
+    },
+    {
+      boundsAutoApply: true,
+      wayPointVisible: false,
+      routeActiveStrokeWidth: 10,
+      routeActiveStrokeColor: '#000000',
+    }
+  );
+
+  mapRef.current?.geoObjects.add(multiRoute);
+  mapRef.current!.route = multiRoute;
+
+  multiRoute.model.events.add('requestsuccess', function () {
+    const activeRoute = multiRoute.getActiveRoute();
+
+    if (activeRoute) {
+      const time = (activeRoute.properties.get('duration', { text: '' }) as { text: string }).text;
+      const distance = (activeRoute.properties.get('distance', { text: '' }) as { text: string }).text;
+      setRouteInfo(distance, time);
+    }
+  });
+
+  mapRef.current?.geoObjects.add(multiRoute);
+  mapRef.current!.route = multiRoute;
+};

@@ -24,6 +24,7 @@ export const FavoriteItem: FC<FavoriteItemProps> = ({ favorite }) => {
   };
 
   const toggleFavorite = () => {
+    console.log(123);
     dispatch(placesActions.toggleFavorite(favorite.id));
   };
 

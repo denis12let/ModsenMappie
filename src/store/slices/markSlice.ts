@@ -53,8 +53,11 @@ const placesSlice = createSlice({
         state.favorites = state.favorites.filter((item) => item.id !== placeId);
       } else {
         const favoritePlace = state.items.filter((item) => item.id === placeId);
-        if (favoritePlace) {
+        if (favoritePlace.length) {
           state.favorites.push(...favoritePlace);
+          console.log(isInclude, state.place?.id, placeId, state.place?.id === placeId, favoritePlace);
+        } else if (state.place?.id === placeId) {
+          state.favorites.push(state.place);
         }
       }
     },

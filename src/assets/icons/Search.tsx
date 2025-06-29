@@ -1,7 +1,4 @@
-import { theme } from '@styles/theme';
 import { FC } from 'react';
-
-// import { theme } from '@styles/theme';
 
 interface SearchProps {
   color?: string;

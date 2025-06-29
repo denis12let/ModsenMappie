@@ -49,7 +49,6 @@ const Search: FC = () => {
     dispatch(placesActions.setSearchRadius(currentRadius));
 
     deleteMarks(mapRef);
-    console.log(searchQuery);
     dispatch(
       searchPlaces({
         center: userCoords,

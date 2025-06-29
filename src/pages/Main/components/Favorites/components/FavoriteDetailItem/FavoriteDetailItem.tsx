@@ -2,7 +2,7 @@ import { useAppDispatch } from '@hooks/useAppDispatch';
 import { placesActions, placeSelectors } from '@store/slices';
 import { Button } from '@ui/Button';
 import { Text } from '@ui/Text';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { PlaceResult } from 'src/types';
 import {
   FavoriteCard,
@@ -21,21 +21,28 @@ import geo from '@assets/icons/geo-button.svg';
 import fav from '@assets/icons/fav-button.svg';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { marks } from '@constants/marks';
+import { createRoute } from '@utils/map';
+import { useMapContext } from '@context/MapContext';
+import { useRouteContext } from '@context/RouteContext';
 
 interface FavoriteDetailItemProps {
   place: PlaceResult;
 }
 export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
+  const { mapRef, userPlacemarkRef } = useMapContext();
+  const { setRouteInfo } = useRouteContext();
+
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(placeSelectors.getFavorites);
 
-  const tags = marks.filter((mark) => mark.name === place.subtype).map((mark) => <img src={mark.path} alt="tag" />);
+  const tags = marks.filter((mark) => mark.name === place.subtype).map((mark) => <img key={mark.path} src={mark.path} alt="tag" />);
 
   const isInclude = favorites.some((favorite) => favorite.id === place.id);
 
   useEffect(() => {
     return () => {
       dispatch(placesActions.clearPlace());
+      setRouteInfo('0 км', '0 мин');
     };
   }, []);
 
@@ -49,6 +56,10 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
 
   const handleExit = () => {
     dispatch(placesActions.clearPlace());
+  };
+
+  const handleCreateRoute = () => {
+    createRoute(mapRef, userPlacemarkRef, place.coordinates, setRouteInfo);
   };
 
   return (
@@ -78,7 +89,7 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
             </Button>
           </FavoritesButtonLike>
           <FavoritesButtonRoute>
-            <Button type="button">
+            <Button type="button" onClick={handleCreateRoute}>
               <img src={geo} alt="route" />
               <p>Маршрут</p>
             </Button>
