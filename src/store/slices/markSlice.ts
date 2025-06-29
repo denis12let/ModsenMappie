@@ -40,7 +40,6 @@ const placesSlice = createSlice({
       state.items = [];
     },
     setPlace(state, action: PayloadAction<PlaceResult>) {
-      console.log(999);
       state.place = action.payload;
     },
     clearPlace(state) {
@@ -53,10 +52,9 @@ const placesSlice = createSlice({
       if (isInclude) {
         state.favorites = state.favorites.filter((item) => item.id !== placeId);
       } else {
-        const favoritePlace = state.items.find((item) => item.id === placeId);
-
+        const favoritePlace = state.items.filter((item) => item.id === placeId);
         if (favoritePlace) {
-          state.favorites.push(favoritePlace);
+          state.favorites.push(...favoritePlace);
         }
       }
     },
@@ -76,7 +74,10 @@ const placesSlice = createSlice({
         state.error = action.payload || 'Unknown error';
       });
   },
+  selectors: {
+    getFavorites: (state: PlacesState) => state.favorites,
+  },
 });
 
-export const { actions: placesActions, reducer: placesReducer } = placesSlice;
+export const { actions: placesActions, selectors: placeSelectors, reducer: placesReducer } = placesSlice;
 export const selectPlaces = (state: { places: PlacesState }) => state.places;

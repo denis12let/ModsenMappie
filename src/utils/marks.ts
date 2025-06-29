@@ -1,8 +1,7 @@
 import { AppDispatch } from './../store/store';
 import { marks } from '@constants';
-import { ExtendedMap } from '@context';
 import { placesActions } from '@store/slices';
-import { PlaceResult } from 'src/types';
+import { PlaceResult, ExtendedMap } from 'src/types';
 
 export const createMarks = (places: PlaceResult[], mapRef: React.RefObject<ExtendedMap | null>, dispatch: AppDispatch) => {
   places.forEach((place) => {
@@ -26,7 +25,6 @@ export const createMarks = (places: PlaceResult[], mapRef: React.RefObject<Exten
       if (!clickedPlace.address) {
         clickedPlace.address = address;
       }
-      console.log(clickedPlace, address);
 
       dispatch(placesActions.setPlace(clickedPlace));
     });
@@ -56,7 +54,6 @@ export const reverseGeocode = (coords: [number, number]): Promise<string> => {
       .then((res: any) => {
         const firstGeoObject = res.geoObjects.get(0);
         if (firstGeoObject) {
-          console.log(9);
           const address = firstGeoObject.getAddressLine();
           resolve(address || 'Адрес не найден');
         } else {

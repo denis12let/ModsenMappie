@@ -5,7 +5,7 @@ export const FavoriteItemWrapper = styled.div`
   padding: ${({ theme }) => theme.spacing.md};
   border-radius: ${({ theme }) => theme.border.borderRadius.md};
   height: 230px;
-
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -16,7 +16,7 @@ export const FavoriteItemTop = styled.div`
   gap: ${({ theme }) => theme.spacing.md};
 `;
 
-export const FavoriteItemImg = styled.div`
+export const FavoriteItemImg = styled.img`
   max-width: 120px;
   width: 100%;
   max-height: 100px;
@@ -28,7 +28,7 @@ export const FavoriteItemBottom = styled.div`
   justify-content: space-between;
 `;
 
-export const FavoriteItemIcon = styled.button`
+export const FavoriteItemIcon = styled.div`
   max-width: 15px;
   max-height: 20px;
   transform: scaleX(-1);

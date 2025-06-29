@@ -1,21 +1,47 @@
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import { placesActions } from '@store/slices';
+import { placesActions, placeSelectors } from '@store/slices';
 import { Button } from '@ui/Button';
 import { Text } from '@ui/Text';
 import { FC, useEffect } from 'react';
 import { PlaceResult } from 'src/types';
+import {
+  FavoriteCard,
+  FavoriteImg,
+  FavoritesButtonLike,
+  FavoritesButtonRoute,
+  FavoritesButtons,
+  FavoritesTags,
+  FavoritesText,
+  FavoritesTitle,
+  FavoritesTop,
+} from './FavoriteDetailItem.style';
+import { Icons } from '@assets/icons';
+import attractions from '@assets/icons/attractions.svg';
+import geo from '@assets/icons/geo-button.svg';
+import fav from '@assets/icons/fav-button.svg';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { marks } from '@constants/marks';
 
 interface FavoriteDetailItemProps {
   place: PlaceResult;
 }
 export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
   const dispatch = useAppDispatch();
+  const favorites = useAppSelector(placeSelectors.getFavorites);
+
+  const tags = marks.filter((mark) => mark.name === place.subtype).map((mark) => <img src={mark.path} alt="tag" />);
+
+  const isInclude = favorites.some((favorite) => favorite.id === place.id);
 
   useEffect(() => {
     return () => {
       dispatch(placesActions.clearPlace());
     };
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
   const toggleFavorite = (id: number) => {
     dispatch(placesActions.toggleFavorite(id));
@@ -27,10 +53,38 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
 
   return (
     <>
-      <Button onClick={handleExit}>-</Button>
-      <Text variation="title">Название: {place.name}</Text>
-      <Text variation="title">Адрес: {place.address || place.subtype}</Text>
-      <Button onClick={() => toggleFavorite(place.id)}>Избранное</Button>
+      <FavoritesTop>
+        <Button onClick={handleExit}>
+          <Icons.Arrow width={8} height={13} />
+        </Button>
+        <Text variation="title">Избранное</Text>
+      </FavoritesTop>
+      <FavoriteCard>
+        <FavoriteImg alt="Важная картинка" />
+        <FavoritesTags>{tags} </FavoritesTags>
+        <FavoritesTitle>
+          <Text variation="topic">{place.name}</Text>
+        </FavoritesTitle>
+        <FavoritesText>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium aspernatur iste nulla ducimus! Ut maxime soluta in est,
+          aliquid explicabo commodi dolore ab non modi, architecto unde temporibus accusamus impedit.
+        </FavoritesText>
+        {/* <Text variation="title">Адрес: {place.address || place.subtype}</Text> */}
+        <FavoritesButtons>
+          <FavoritesButtonLike>
+            <Button type="button" onClick={() => toggleFavorite(place.id)}>
+              <img src={fav} alt="favorite" />
+              <p>{isInclude ? 'Сохранено' : 'Сохранить'}</p>
+            </Button>
+          </FavoritesButtonLike>
+          <FavoritesButtonRoute>
+            <Button type="button">
+              <img src={geo} alt="route" />
+              <p>Маршрут</p>
+            </Button>
+          </FavoritesButtonRoute>
+        </FavoritesButtons>
+      </FavoriteCard>
     </>
   );
 };

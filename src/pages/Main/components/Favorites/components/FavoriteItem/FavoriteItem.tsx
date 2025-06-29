@@ -1,26 +1,55 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { FavoriteItemBottom, FavoriteItemIcon, FavoriteItemImg, FavoriteItemTop, FavoriteItemWrapper } from './FavoriteItem.style';
-import { Text } from '@ui';
+import { Button, Text } from '@ui';
 import { Icons } from '@assets/icons';
 import { theme } from '@styles/theme';
+import { PlaceResult } from 'src/types';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { placesActions, placeSelectors } from '@store/slices';
+import { useAppSelector } from '@hooks/useAppSelector';
 
-export const FavoriteItem: FC = () => {
+interface FavoriteItemProps {
+  favorite: PlaceResult;
+}
+
+export const FavoriteItem: FC<FavoriteItemProps> = ({ favorite }) => {
+  const dispatch = useAppDispatch();
+
+  const favorites = useAppSelector(placeSelectors.getFavorites);
+
+  const isInclude = favorites.some((item) => item.id === favorite.id);
+
+  const handleOpenPlace = () => {
+    dispatch(placesActions.setPlace(favorite));
+  };
+
+  const toggleFavorite = () => {
+    dispatch(placesActions.toggleFavorite(favorite.id));
+  };
+
   return (
     <FavoriteItemWrapper>
       <FavoriteItemTop>
         <FavoriteItemImg />
-        <Text variation="title">Фантаcмагарический музей им. П.М. Машерова</Text>
+        <Text variation="title">{favorite.name}</Text>
       </FavoriteItemTop>
       <Text variation="text">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Itaque dolorum unde commodi, fugiat ad earum ipsum tempora quaerat
         consectetur officia consequatur perspiciatis sint asperiores debitis in, culpa ea. Iste, non?
       </Text>
       <FavoriteItemBottom>
-        <FavoriteItemIcon>
-          <Icons.Favorite color={theme.colors.red} width={'15'} height="20" />
+        <FavoriteItemIcon onClick={toggleFavorite}>
+          <Icons.Favorite
+            color={isInclude ? theme.colors.red : theme.colors.white}
+            decorColor={theme.colors.red}
+            width={'15'}
+            height="20"
+          />
         </FavoriteItemIcon>
         <FavoriteItemIcon>
-          <Icons.Arrow />
+          <Button type="button" onClick={handleOpenPlace}>
+            <Icons.Arrow />
+          </Button>
         </FavoriteItemIcon>
       </FavoriteItemBottom>
     </FavoriteItemWrapper>

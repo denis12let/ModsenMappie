@@ -5,6 +5,7 @@ export const theme = {
     gray_light_light: '#C4C4C4',
     blue: '#5E7BC7',
     red: '#C75E5E',
+    gray: '#808080',
   },
   fonts: {
     primary: 'Mont, sans-serif',

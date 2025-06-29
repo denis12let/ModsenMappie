@@ -10,7 +10,7 @@ import { theme } from '@styles/theme';
 import { useDebounce } from '@hooks/useDebounce';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { placesActions, placesReducer } from '@store/slices';
+import { placesActions } from '@store/slices';
 import { searchPlaces } from '@store/actions';
 import { useNavigate } from 'react-router-dom';
 import { APP_ROUTES_PATH } from '@constants/app';

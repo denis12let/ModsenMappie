@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { ConstrolsStyled, ControlButton, ControlIcon, ControlItem, DistantionStyled, Line } from './Controls.style';
 import { Icons } from '@assets/icons';
 import { useMapContext } from '@context';
@@ -6,11 +6,10 @@ import { handleLocateUser } from '@utils/map';
 
 export const Controls: FC = () => {
   const { mapRef, zoom, setZoom, userPlacemarkRef } = useMapContext();
-  const [distantion, setDistantion] = useState(0);
-  const [time, setTime] = useState(0);
+  const [distantion, setDistantion] = useState('');
+  const [time, setTime] = useState('');
 
   mapRef.current?.events.add('click', (e) => {
-    console.log(111);
     const startCoord = userPlacemarkRef.current?.geometry?.getCoordinates();
     const endCoord = e.get('coords');
 
@@ -39,24 +38,18 @@ export const Controls: FC = () => {
     multiRoute.model.events.add('requestsuccess', function () {
       const activeRoute = multiRoute.getActiveRoute();
 
-      setTime(activeRoute.properties.get('duration').text);
-      setDistantion(activeRoute.properties.get('distance').text);
+      if (activeRoute) {
+        setTime((activeRoute.properties.get('duration', { text: '' }) as { text: string }).text);
+        setDistantion((activeRoute.properties.get('distance', { text: '' }) as { text: string }).text);
+      }
     });
 
     mapRef.current?.geoObjects.add(multiRoute);
     mapRef.current!.route = multiRoute;
   });
 
-  const handleZoomIn = () => {
-    const newZoom = zoom + 1;
-    setZoom(newZoom);
-    if (mapRef.current) {
-      mapRef.current.setZoom(newZoom);
-    }
-  };
-
-  const handleZoomOut = () => {
-    const newZoom = zoom - 1;
+  const handleZoom = (type: boolean) => {
+    const newZoom = type ? zoom + 1 : zoom - 1;
     setZoom(newZoom);
     if (mapRef.current) {
       mapRef.current.setZoom(newZoom);
@@ -77,13 +70,13 @@ export const Controls: FC = () => {
         </ControlButton>
       </ControlItem>
       <ControlItem>
-        <ControlButton onClick={handleZoomIn}>
+        <ControlButton onClick={() => handleZoom(true)}>
           <ControlIcon>
             <Icons.Plus />
           </ControlIcon>
         </ControlButton>
         <Line />
-        <ControlButton onClick={handleZoomOut}>
+        <ControlButton onClick={() => handleZoom(false)}>
           <ControlIcon>
             <Icons.Minus />
           </ControlIcon>
