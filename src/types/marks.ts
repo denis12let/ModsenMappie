@@ -16,6 +16,7 @@ export interface PlaceResult {
 }
 
 export interface PlaceData {
+  id: string;
   address: string;
   coordinates: [number, number];
   details?: any;

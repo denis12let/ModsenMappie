@@ -11,7 +11,6 @@ interface MainProps {
 }
 const Main: FC<MainProps> = ({ children }) => {
   const apiKey = import.meta.env.VITE_API_KEY || '';
-  const mapRef = useRef<ymaps.Map>(null!);
 
   return (
     <MainStyled>

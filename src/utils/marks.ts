@@ -1,22 +1,14 @@
+import { AppDispatch } from './../store/store';
 import { marks } from '@constants';
 import { ExtendedMap } from '@context';
+import { placesActions } from '@store/slices';
 import { PlaceResult } from 'src/types';
 
-export const createMarks = (places: PlaceResult[], mapRef: React.RefObject<ExtendedMap | null>) => {
-  console.log(places);
+export const createMarks = (places: PlaceResult[], mapRef: React.RefObject<ExtendedMap | null>, dispatch: AppDispatch) => {
   places.forEach((place) => {
     const placemark = new window.ymaps.Placemark(
       place.coordinates,
-      {
-        // balloonContentHeader: place.name,
-        // balloonContentBody: `
-        //   <div>
-        //     <p>Адрес: ${place.address || 'Не указан'}</p>
-        //     <p>Тип: ${place.type}</p>
-        //   </div>
-        // `,
-        // hintContent: place.name,
-      },
+      {},
       {
         iconLayout: 'default#image',
         iconImageHref: `${marks.find((item) => place.subtype === item.name)?.path}`,
@@ -27,18 +19,16 @@ export const createMarks = (places: PlaceResult[], mapRef: React.RefObject<Exten
         hasHint: true,
       }
     );
-    console.log(1);
     placemark.events.add('click', async (e) => {
-      console.log(2);
+      const clickedPlace = JSON.parse(JSON.stringify(place)) as PlaceResult;
 
       const address = await reverseGeocode(e.get('coords'));
+      if (!clickedPlace.address) {
+        clickedPlace.address = address;
+      }
+      console.log(clickedPlace, address);
 
-      console.log(address);
-    });
-
-    placemark.events.add('click', (e) => {
-      const coords = e.get('coords');
-      console.log('Координаты:', coords);
+      dispatch(placesActions.setPlace(clickedPlace));
     });
 
     mapRef?.current?.geoObjects.add(placemark);

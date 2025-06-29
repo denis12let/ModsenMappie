@@ -26,7 +26,7 @@ export const NavBar: FC = () => {
         );
       }
     });
-
+    //ПОтом вложенность убрать
     return () => unsubscribe();
   }, []);
 
@@ -58,7 +58,7 @@ export const NavBar: FC = () => {
       </NavLink>
     );
   });
-
+  //Тут тоже, делать через условный рендеринг
   return (
     <NavBarWrapper>
       <NavBarInner>

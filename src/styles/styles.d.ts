@@ -52,5 +52,8 @@ declare module 'styled-components' {
       medium: string;
       slow: string;
     };
+    media: {
+      mob: string;
+    };
   }
 }

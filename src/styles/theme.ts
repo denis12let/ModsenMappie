@@ -49,4 +49,7 @@ export const theme = {
     medium: '0.5s',
     slow: '0.7s',
   },
+  media: {
+    mob: '(max-width: 500px)',
+  },
 };

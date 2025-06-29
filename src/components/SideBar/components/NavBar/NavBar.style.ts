@@ -1,3 +1,4 @@
+import { theme } from '@styles';
 import styled from 'styled-components';
 
 export interface NavBarItemProps {
@@ -28,6 +29,9 @@ export const NavBarWrapper = styled.div`
 
   & button {
     max-height: 50px;
+  }
+  @media ${({ theme }) => theme.media.mob} {
+    max-width: 70px;
   }
 `;
 

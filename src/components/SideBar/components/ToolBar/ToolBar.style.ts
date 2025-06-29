@@ -16,6 +16,12 @@ export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
   transition: all ${({ theme }) => theme.transition.medium};
 
   position: absolute;
+
+  @media ${({ theme }) => theme.media.mob} {
+    left: 70px;
+
+    transform: ${({ isOpen }) => (isOpen ? '' : `translateX(-${400}px)`)};
+  }
 `;
 
 export const ToolBarInner = styled.div`

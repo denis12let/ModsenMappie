@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PlaceResult } from 'src/types';
-import { searchPlaces, toggleFavorite } from '@store/actions';
+import { searchPlaces } from '@store/actions';
 
 interface PlacesState {
+  place: PlaceResult | null;
   items: PlaceResult[];
-  favorites: string[];
+  favorites: PlaceResult[];
   isLoading: boolean;
   error: string | null;
   searchParams: {
@@ -14,6 +15,7 @@ interface PlacesState {
 }
 
 const initialState: PlacesState = {
+  place: null,
   items: [],
   favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
   isLoading: false,
@@ -37,6 +39,27 @@ const placesSlice = createSlice({
     clearResults(state) {
       state.items = [];
     },
+    setPlace(state, action: PayloadAction<PlaceResult>) {
+      console.log(999);
+      state.place = action.payload;
+    },
+    clearPlace(state) {
+      state.place = null;
+    },
+    toggleFavorite(state, action: PayloadAction<number>) {
+      const placeId = action.payload;
+      const isInclude = state.favorites.some((item) => item.id === placeId);
+
+      if (isInclude) {
+        state.favorites = state.favorites.filter((item) => item.id !== placeId);
+      } else {
+        const favoritePlace = state.items.find((item) => item.id === placeId);
+
+        if (favoritePlace) {
+          state.favorites.push(favoritePlace);
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,15 +74,6 @@ const placesSlice = createSlice({
       .addCase(searchPlaces.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || 'Unknown error';
-      })
-      .addCase(toggleFavorite.fulfilled, (state, action) => {
-        const index = state.favorites.indexOf(action.payload);
-        if (index >= 0) {
-          state.favorites.splice(index, 1);
-        } else {
-          state.favorites.push(action.payload);
-        }
-        localStorage.setItem('favorites', JSON.stringify(state.favorites));
       });
   },
 });

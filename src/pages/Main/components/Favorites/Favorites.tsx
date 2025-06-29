@@ -1,13 +1,24 @@
 import { Text } from '@ui';
-import { FC, ReactNode, useEffect, useState } from 'react';
-import { FavoritesList } from './components';
-import { useMapContext } from '@context/MapContext';
+import { FC, ReactNode, useEffect } from 'react';
+import { FavoriteDetailItem, FavoritesList } from './components';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { useAppDispatch } from '@hooks/useAppDispatch';
 
 interface FavoritesProps {
   children: ReactNode;
 }
 
 const Favorites: FC<FavoritesProps> = ({ children }) => {
+  const dispatch = useAppDispatch();
+
+  // const { mapRef, userPlacemarkRef } = useMapContext();
+
+  const { place, favorites, isLoading } = useAppSelector((state) => state.places);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
   // const { mapRef, userPlacemarkRef } = useMapContext();
   // const [placeInfo, setPlaceInfo] = useState<PlaceData | null>(null);
 
@@ -49,7 +60,7 @@ const Favorites: FC<FavoritesProps> = ({ children }) => {
   return (
     <>
       <Text variation="topic">Избранное:</Text>
-      <FavoritesList />
+      {place ? <FavoriteDetailItem place={place} /> : <FavoritesList favorites={favorites} />}
     </>
   );
 };

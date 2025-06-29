@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { Button, Input, Text } from '@ui';
 import { ButtonStyled, InputRadius, InputWrapper, SearchBox, SearchIcon, SearchStyled } from './Search.style';
 import { SearchList } from './components';
@@ -10,27 +10,32 @@ import { theme } from '@styles/theme';
 import { useDebounce } from '@hooks/useDebounce';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { placesActions } from '@store/slices';
+import { placesActions, placesReducer } from '@store/slices';
 import { searchPlaces } from '@store/actions';
-
-interface SearchProps {
-  children: ReactNode;
-}
+import { useNavigate } from 'react-router-dom';
+import { APP_ROUTES_PATH } from '@constants/app';
 
 const Search: FC = () => {
+  const navigation = useNavigate();
+
   const [radius, setRadius] = useState('5');
   const [searchQuery, setSearchQuery] = useState('');
   const { mapRef, userPlacemarkRef } = useMapContext();
   const [selectedIcons, setSelectedIcons] = useState<Mark[]>([]);
   const dispatch = useAppDispatch();
-  const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
+  const { place, items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
 
   const debouncedRadius = useDebounce(radius, 500);
-  console.log(11);
 
   useEffect(() => {
     handleSearch();
   }, [selectedIcons]);
+
+  useEffect(() => {
+    if (place) {
+      navigation(APP_ROUTES_PATH.MAIN + '/' + APP_ROUTES_PATH.FAVORITES);
+    }
+  }, [place]);
 
   const handleSearch = async () => {
     if (!mapRef.current || !userPlacemarkRef.current) return;
@@ -67,7 +72,7 @@ const Search: FC = () => {
 
   useEffect(() => {
     if (foundPlaces.length > 0 && mapRef.current) {
-      createMarks(foundPlaces, mapRef);
+      createMarks(foundPlaces, mapRef, dispatch);
     }
   }, [foundPlaces, mapRef]);
 
