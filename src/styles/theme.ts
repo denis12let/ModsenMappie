@@ -54,6 +54,6 @@ export const theme = {
     slow: '0.7s',
   },
   media: {
-    mob: '(max-width: 500px)',
+    mob: '(max-width: 700px)',
   },
 };

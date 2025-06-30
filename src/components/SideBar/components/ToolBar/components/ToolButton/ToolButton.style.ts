@@ -32,7 +32,7 @@ export const ToolbarCloseButton = styled.button`
 `;
 
 export const ToolbarCloseButtonIcon = styled.div<ToolbarCloseButtonIconProps>`
-  transform: ${({ isopen }) => (Boolean(isopen) ? '' : `rotate(${180}deg)`)};
+  transform: ${({ isopen }) => (JSON.parse(isopen) ? '' : `rotate(${180}deg)`)};
   transition: all ${({ theme }) => theme.transition.medium};
   transform-origin: center center;
   flex-grow: 0;

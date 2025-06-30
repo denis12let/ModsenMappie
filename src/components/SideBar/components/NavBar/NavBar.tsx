@@ -62,8 +62,10 @@ export const NavBar: FC = () => {
   return (
     <NavBarWrapper>
       <NavBarInner>
-        <NavBarLinks>{links}</NavBarLinks>
-        {element}
+        <NavBarLinks>
+          {links}
+          {element}
+        </NavBarLinks>
       </NavBarInner>
     </NavBarWrapper>
   );

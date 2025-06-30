@@ -15,7 +15,7 @@ export const SearchItem: FC<SearchItemProps> = ({ mark, isActive, toggleIcon }) 
       <SearchItemImg>
         <img src={mark.path} alt="иконка" />
       </SearchItemImg>
-      <Text variation="title">{mark.name}</Text>
+      <Text variation="title">{mark.ru}</Text>
     </SearchItemStyled>
   );
 };

@@ -20,13 +20,15 @@ export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
   @media ${({ theme }) => theme.media.mob} {
     left: 70px;
 
-    transform: ${({ isopen }) => (JSON.parse(isopen) ? '' : `translateX(-${400}px)`)};
+    transform: ${({ isopen }) => (JSON.parse(isopen) ? '' : `translateX(-${250}px)`)};
+    width: 290px;
   }
 `;
 
 export const ToolBarInner = styled.div`
   max-width: 400px;
   width: 100%;
+  flex-grow: 1;
   padding: ${({ theme }) => theme.spacing.lg};
 
   display: flex;
@@ -34,4 +36,8 @@ export const ToolBarInner = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
 
   background: ${({ theme }) => theme.colors.white};
+
+  @media ${({ theme }) => theme.media.mob} {
+    padding: ${({ theme }) => theme.spacing.xxxxs};
+  }
 `;

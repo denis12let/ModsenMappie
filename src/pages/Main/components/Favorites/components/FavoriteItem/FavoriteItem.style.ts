@@ -9,11 +9,21 @@ export const FavoriteItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media ${({ theme }) => theme.media.mob} {
+    height: auto;
+    gap: ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 export const FavoriteItemTop = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.md};
+  @media ${({ theme }) => theme.media.mob} {
+    flex-direction: column;
+    img {
+      height: 50px;
+    }
+  }
 `;
 
 export const FavoriteItemImg = styled.img`

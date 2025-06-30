@@ -9,7 +9,7 @@ export const ConstrolsStyled = styled.div`
   bottom: 20px;
   z-index: 40;
   position: absolute;
-  @media (max-width: 700px) {
+  @media ${({ theme }) => theme.media.mob} {
     flex-direction: column-reverse;
     align-items: flex-end;
   }
@@ -66,6 +66,10 @@ export const RouteStyled = styled.div`
   box-shadow: 0px 4px 14px 0px rgba(44, 44, 44, 0.09);
   border-radius: ${({ theme }) => theme.border.borderRadius.md};
   padding: ${({ theme }) => theme.spacing.md};
+
+  @media ${({ theme }) => theme.media.mob} {
+    max-width: 250px;
+  }
 `;
 
 export const RouteRow = styled.div`

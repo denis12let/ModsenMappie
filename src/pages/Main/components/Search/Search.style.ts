@@ -59,4 +59,10 @@ export const ButtonStyled = styled.div`
   &:hover {
     border: ${({ theme }) => `${theme.border.width.md} solid ${theme.colors.gray_light_light}`};
   }
+  @media ${({ theme }) => theme.media.mob} {
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
 `;

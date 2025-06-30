@@ -6,4 +6,8 @@ export const FavoritesListStyled = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
   max-height: 750px;
   overflow: auto;
+  @media ${({ theme }) => theme.media.mob} {
+    padding-right: ${({ theme }) => theme.spacing.xxxxs};
+    max-height: 700px;
+  }
 `;

@@ -4,6 +4,7 @@ export const FavoritesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm};
+  height: 100%;
 `;
 
 export const FavoritesTitle = styled.div`
@@ -16,7 +17,7 @@ export const SearchStyled = styled.div`
   height: 60px;
   margin-bottom: ${({ theme }) => theme.spacing.sm};
   & input {
-    padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.xxxl}`};
+    padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.xxxxs} ${theme.spacing.sm} ${theme.spacing.xxxl}`};
   }
 `;
 

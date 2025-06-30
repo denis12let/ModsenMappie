@@ -1,4 +1,3 @@
-import { theme } from '@styles';
 import styled from 'styled-components';
 
 export interface NavBarItemProps {
@@ -47,14 +46,59 @@ export const NavBarInner = styled.div`
   justify-content: space-between;
   align-items: center;
   min-height: 100%;
+
+  @media ${({ theme }) => theme.media.mob} {
+    padding: ${({ theme }) => `
+    ${theme.spacing.xl} 
+    ${theme.spacing.sm} 
+    ${theme.spacing.sm}
+  `};
+  }
 `;
 
 export const NavBarLinks = styled.nav`
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: ${({ theme }) => theme.spacing.sm};
   & > :first-child {
     margin-bottom: ${({ theme }) => theme.spacing.sm};
+  }
+
+  & > :nth-child(1),
+  & > :nth-child(2),
+  & > :nth-child(3) {
+    order: 1;
+  }
+
+  & > :nth-child(4) {
+    order: 2;
+    margin-top: auto;
+  }
+  @media ${({ theme }) => theme.media.mob} {
+    & > :nth-child(1) {
+      margin-bottom: 0;
+    }
+    & > :nth-child(1),
+    & > :nth-child(4) {
+      order: 1;
+      margin-top: 0;
+    }
+
+    & > :nth-child(2),
+    & > :nth-child(3) {
+      order: 2;
+    }
+
+    & > :nth-child(2) {
+      margin-top: auto;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 
@@ -71,5 +115,14 @@ export const NavBarItem = styled.div<NavBarItemProps>`
   border: ${({ color, theme }) => (color === theme.colors.white ? `${theme.border.width.md} solid ${theme.colors.gray_light_light}` : '0')};
   &:hover {
     border: ${({ theme }) => `${theme.border.width.md} solid ${theme.colors.gray_light_light}`};
+  }
+
+  @media ${({ theme }) => theme.media.mob} {
+    width: 40px;
+    height: 40px;
+    svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 `;

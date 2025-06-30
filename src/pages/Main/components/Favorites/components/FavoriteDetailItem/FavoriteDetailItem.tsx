@@ -10,6 +10,7 @@ import {
   FavoritesButtonLike,
   FavoritesButtonRoute,
   FavoritesButtons,
+  FavoritesDetailsItemStyled,
   FavoritesTags,
   FavoritesText,
   FavoritesTitle,
@@ -63,7 +64,7 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
   };
 
   return (
-    <>
+    <FavoritesDetailsItemStyled>
       <FavoritesTop>
         <Button onClick={handleExit}>
           <Icons.Arrow width={8} height={13} />
@@ -96,6 +97,6 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
           </FavoritesButtonRoute>
         </FavoritesButtons>
       </FavoriteCard>
-    </>
+    </FavoritesDetailsItemStyled>
   );
 };

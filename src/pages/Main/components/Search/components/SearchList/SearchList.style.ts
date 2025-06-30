@@ -6,5 +6,6 @@ export const SearchListStyled = styled.div`
   align-items: flex-start;
 
   max-height: 470px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;

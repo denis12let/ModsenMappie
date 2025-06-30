@@ -23,6 +23,7 @@ export const SearchItemStyled = styled.div<SearchItemStyledProps>`
 `;
 
 export const SearchItemImg = styled.div`
+  flex-shrink: 0;
   width: 30px;
   height: 30px;
 `;
