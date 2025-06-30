@@ -33,13 +33,14 @@ export class PlaceService {
     }
 
     const response = await apiService.post('', `data=${encodeURIComponent(query)}`);
-
+    console.log(response.data.elements.length);
     return response.data.elements.map((element: any) => {
       const tags = element.tags || {};
 
       const type =
-        Object.keys(tags).find((key) => ['amenity', 'tourism', 'shop', 'historic', 'leisure', 'sport', 'building'].includes(key)) ||
-        'unknown';
+        Object.keys(tags).find((key) =>
+          ['amenity', 'tourism', 'shop', 'historic', 'leisure', 'sport', 'building', 'bicycle'].includes(key)
+        ) || 'unknown';
       const subtype = tags[type] || 'unknown';
 
       return {
