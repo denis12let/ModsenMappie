@@ -1,8 +1,11 @@
 import { FC } from 'react';
-import { SearchItem } from '../SearchItem';
-import { SearchListStyled } from './SearchList.style';
+
 import { marks } from '@constants';
 import { Mark } from 'src/types';
+
+import { SearchItem } from '../SearchItem';
+
+import { SearchListStyled } from './SearchList.style';
 
 interface SearchListProps {
   toggleIcon: (item: Mark) => void;

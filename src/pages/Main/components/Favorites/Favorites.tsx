@@ -1,10 +1,12 @@
+import { FC, lazy, useEffect, useState } from 'react';
+
 import { Input } from '@ui';
-import { FC, lazy, ReactNode, useEffect, useState } from 'react';
+import { useAppSelector, useDebounce } from '@hooks';
+import { Icons } from '@assets';
+
 import { FavoriteDetailItem, FavoritesList } from './components';
-import { useAppSelector } from '@hooks/useAppSelector';
+
 import { FavoritesWrapper, SearchIcon, SearchStyled } from './Favorites.style';
-import { Icons } from '@assets/icons';
-import { useDebounce } from '@hooks/useDebounce';
 
 export const FavoritesAsync = lazy(() => import('./Favorites'));
 

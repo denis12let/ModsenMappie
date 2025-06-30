@@ -1,7 +1,10 @@
 import { FC } from 'react';
+
+import { Text } from '@ui';
+
 import { FavoriteItem } from '../FavoriteItem';
 import { PlaceResult } from 'src/types';
-import { Text } from '@ui/Text';
+
 import { FavoritesListStyled } from './FavoritesList.style';
 
 interface FavoritesListProps {

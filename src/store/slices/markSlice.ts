@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { searchPlaces } from '@store';
 import { PlaceResult } from 'src/types';
-import { searchPlaces } from '@store/actions';
 
 interface PlacesState {
   place: PlaceResult | null;

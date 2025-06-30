@@ -1,12 +1,13 @@
 import { FC } from 'react';
-import { FavoriteItemBottom, FavoriteItemIcon, FavoriteItemImg, FavoriteItemTop, FavoriteItemWrapper } from './FavoriteItem.style';
+
+import { Icons } from '@assets';
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { placesActions, placeSelectors } from '@store';
 import { Button, Text } from '@ui';
-import { Icons } from '@assets/icons';
-import { theme } from '@styles/theme';
+import { theme } from '@styles';
 import { PlaceResult } from 'src/types';
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { placesActions, placeSelectors } from '@store/slices';
-import { useAppSelector } from '@hooks/useAppSelector';
+
+import { FavoriteItemBottom, FavoriteItemIcon, FavoriteItemImg, FavoriteItemTop, FavoriteItemWrapper } from './FavoriteItem.style';
 
 interface FavoriteItemProps {
   favorite: PlaceResult;

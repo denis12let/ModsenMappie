@@ -1,10 +1,13 @@
-import { onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { FC, lazy, ReactNode, useEffect, useState } from 'react';
-import { auth } from './../../firebase';
-import { SignUp, SignIn } from './components';
-import { AuthBottom, AuthStyled, ButtonWrapper } from './Auth.style';
-import { Button } from '@ui';
 import { useNavigate } from 'react-router-dom';
+
+import { SignUp, SignIn } from './components';
+import { Button } from '@ui';
+
+import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { auth } from './../../firebase';
+
+import { AuthBottom, AuthStyled, ButtonWrapper } from './Auth.style';
 
 interface AuthProps {
   children: ReactNode;

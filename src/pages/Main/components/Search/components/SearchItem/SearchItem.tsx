@@ -1,7 +1,10 @@
 import { FC } from 'react';
-import { SearchItemImg, SearchItemStyled } from './SearchItem.style';
+
 import { Text } from '@ui';
+
 import { Mark } from 'src/types';
+
+import { SearchItemImg, SearchItemStyled } from './SearchItem.style';
 
 interface SearchItemProps {
   mark: Mark;

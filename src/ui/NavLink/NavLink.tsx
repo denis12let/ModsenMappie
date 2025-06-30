@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+
 import { StyledNavLink, StyledNavLinkProps } from './NavLink.style';
 
 interface NavLinkProps extends StyledNavLinkProps {

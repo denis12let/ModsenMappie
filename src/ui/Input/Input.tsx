@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { InputStyle } from './Input.style';
 
 interface InputProps {

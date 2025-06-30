@@ -1,5 +1,6 @@
-import { PlaceService } from '@api/leafletService';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { PlaceService } from '@api';
 import { PlaceResult, Mark } from 'src/types';
 
 interface SearchParams {

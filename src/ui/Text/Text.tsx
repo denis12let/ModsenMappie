@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+
 import { DText, Title, Topic } from './Text.style';
 
 interface TextProps {

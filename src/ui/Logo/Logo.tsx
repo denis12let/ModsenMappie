@@ -1,4 +1,4 @@
-import { Icons } from '@assets/icons';
+import { Icons } from '@assets';
 import { FC } from 'react';
 
 export const Logo: FC = () => {

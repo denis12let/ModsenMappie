@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
-import { NavBar } from './components/NavBar';
-import { ToolBar } from './components/ToolBar';
+
+import { ToolBar, NavBar } from './components';
+
 import { SideBarStyled } from './SideBar.style';
 
 interface SideBarProps {

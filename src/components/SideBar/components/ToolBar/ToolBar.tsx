@@ -1,7 +1,8 @@
 import { FC, ReactNode, useState } from 'react';
 
+import { ToolButton } from './components';
+
 import { ToolBarInner, ToolBarWrapper } from './ToolBar.style';
-import { ToolButton } from './components/ToolButton';
 
 export interface ToolBarProps {
   children: ReactNode;

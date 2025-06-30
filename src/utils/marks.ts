@@ -1,8 +1,10 @@
-import { AppDispatch } from './../store/store';
-import { APP_ROUTES_PATH, marks } from '@constants';
-import { placesActions } from '@store/slices';
 import { NavigateFunction } from 'react-router-dom';
+
+import { placesActions } from '@store';
+import { APP_ROUTES_PATH, marks } from '@constants';
 import { PlaceResult, ExtendedMap } from 'src/types';
+
+import { AppDispatch } from './../store/store';
 
 export const createMarks = (
   places: PlaceResult[],

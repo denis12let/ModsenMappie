@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { store } from '@store';
 import { GlobalStyle, theme } from '@styles';
-import { AppRouter } from '@components/AppRouter/AppRouter';
+import { AppRouter } from '@components';
 import { MapProvider, RouteProvider } from '@context';
 
 const App: React.FC = () => {

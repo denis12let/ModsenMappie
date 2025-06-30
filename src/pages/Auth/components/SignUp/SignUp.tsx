@@ -1,11 +1,14 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { FC } from 'react';
-import { auth } from './../../../../firebase';
-import { Button, Input, Text } from '@ui';
-import { AuthCard } from '@pages/Auth/Auth.style';
-import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
+
+import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+
+import { Button, Input, Text } from '@ui';
+
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './../../../../firebase';
+import { AuthCard } from '../../Auth.style';
 
 const signUpSchema = yup.object({
   email: yup.string().email('Некорректный email').required('Email обязателен'),

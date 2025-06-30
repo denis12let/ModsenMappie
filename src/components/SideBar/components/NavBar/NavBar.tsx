@@ -6,9 +6,10 @@ import { Icons } from '@assets';
 import { APP_ROUTES_PATH, mainLinks } from '@constants';
 import { theme } from '@styles';
 
-import { NavBarInner, NavBarItem, NavBarLinks, NavBarWrapper } from './NavBar.style';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './../../../../firebase';
+
+import { NavBarInner, NavBarItem, NavBarLinks, NavBarWrapper } from './NavBar.style';
 
 export const NavBar: FC = () => {
   const location = useLocation();

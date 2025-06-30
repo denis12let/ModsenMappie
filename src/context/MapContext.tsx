@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useRef, useState } from 'react';
+
 import { ExtendedMap, IMap, IPlaceMark } from 'src/types';
 
 interface MapContextType {

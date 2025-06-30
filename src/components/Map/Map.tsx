@@ -1,8 +1,8 @@
-import { useMapContext } from '@context/MapContext';
-import { useGeolocation } from '@hooks/useGeolocation';
-import { addCircle, createMap, handleLocateUser, removeControls } from '@utils/map';
-import { deleteMarks } from '@utils/marks';
 import { useEffect, FC } from 'react';
+
+import { useGeolocation } from '@hooks';
+import { addCircle, createMap, handleLocateUser, removeControls, deleteMarks } from '@utils';
+import { useMapContext } from '@context';
 
 interface MapProps {
   center: [number, number];

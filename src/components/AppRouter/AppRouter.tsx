@@ -1,7 +1,8 @@
-import { Suspense, useCallback } from 'react';
+import { Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+
 import { AppRoutesProps, routes } from '@router';
-import { APP_ROUTES_PATH } from '@constants/app';
+import { APP_ROUTES_PATH } from '@constants';
 
 export const AppRouter = () => {
   const renderWithWrapper = (router: AppRoutesProps) => {
@@ -36,7 +37,7 @@ export const AppRouter = () => {
     <Routes>
       {Object.values(routes).map(renderWithWrapper)}
       <Route path="/" element={<Navigate to={`${APP_ROUTES_PATH.MAIN}/${APP_ROUTES_PATH.SEARCH}`} replace />} />
-      <Route path="*" element={<>not found</>} />
+      <Route path="*" element={<Navigate to={`${APP_ROUTES_PATH.MAIN}/${APP_ROUTES_PATH.SEARCH}`} replace />} />
     </Routes>
   );
 };

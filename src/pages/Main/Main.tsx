@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { Map, SideBar } from '@components';
+
 import { Controls } from './components';
 
 import { MainStyled } from './Main.style';

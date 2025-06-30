@@ -1,19 +1,18 @@
 import { FC, lazy, useEffect, useState } from 'react';
-import { Button, Input, Text } from '@ui';
-import { ButtonStyled, InputRadius, InputWrapper, SearchBox, SearchIcon, SearchStyled } from './Search.style';
-import { SearchList } from './components';
-import { useMapContext } from '@context/MapContext';
-import { Mark } from 'src/types';
-import { createMarks, deleteMarks } from '@utils/marks';
-import { Icons } from '@assets/icons';
-import { theme } from '@styles/theme';
-import { useDebounce } from '@hooks/useDebounce';
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { useAppSelector } from '@hooks/useAppSelector';
-import { placesActions } from '@store/slices';
-import { searchPlaces } from '@store/actions';
 import { useNavigate } from 'react-router-dom';
-import { APP_ROUTES_PATH } from '@constants/app';
+
+import { Button, Input, Text } from '@ui';
+import { useMapContext } from '@context';
+import { createMarks, deleteMarks } from '@utils';
+import { theme } from '@styles';
+import { useAppDispatch, useAppSelector, useDebounce } from '@hooks';
+import { Icons } from '@assets';
+import { placesActions, searchPlaces } from '@store';
+import { Mark } from 'src/types';
+
+import { SearchList } from './components';
+
+import { ButtonStyled, InputRadius, InputWrapper, SearchBox, SearchIcon, SearchStyled } from './Search.style';
 
 export const SearchAsync = lazy(() => import('./Search'));
 
@@ -25,7 +24,7 @@ const Search: FC = () => {
   const { mapRef, userPlacemarkRef } = useMapContext();
   const [selectedIcons, setSelectedIcons] = useState<Mark[]>([]);
   const dispatch = useAppDispatch();
-  const { place, items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
+  const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
 
   const debouncedRadius = useDebounce(radius, 500);
 

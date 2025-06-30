@@ -1,9 +1,18 @@
-import { useAppDispatch } from '@hooks/useAppDispatch';
-import { placesActions, placeSelectors } from '@store/slices';
-import { Button } from '@ui/Button';
-import { Text } from '@ui/Text';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '@hooks';
+import { Button, Text } from '@ui';
+import { createRoute, createMarks, deleteMarks } from '@utils';
+import { useMapContext, useRouteContext } from '@context';
+import { placesActions, placeSelectors } from '@store';
+import { Icons } from '@assets';
+import { marks } from '@constants';
 import { PlaceResult } from 'src/types';
+
+import fav from '@assets/icons/fav-button.svg';
+import geo from '@assets/icons/geo-button.svg';
+
 import {
   FavoriteCard,
   FavoriteImg,
@@ -16,16 +25,6 @@ import {
   FavoritesTitle,
   FavoritesTop,
 } from './FavoriteDetailItem.style';
-import { Icons } from '@assets/icons';
-import geo from '@assets/icons/geo-button.svg';
-import fav from '@assets/icons/fav-button.svg';
-import { useAppSelector } from '@hooks/useAppSelector';
-import { marks } from '@constants/marks';
-import { createRoute } from '@utils/map';
-import { useMapContext } from '@context/MapContext';
-import { useRouteContext } from '@context/RouteContext';
-import { createMarks, deleteMarks } from '@utils/marks';
-import { useNavigate } from 'react-router-dom';
 
 interface FavoriteDetailItemProps {
   place: PlaceResult;
