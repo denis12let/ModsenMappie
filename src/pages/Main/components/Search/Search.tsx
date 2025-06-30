@@ -18,7 +18,7 @@ import { APP_ROUTES_PATH } from '@constants/app';
 export const SearchAsync = lazy(() => import('./Search'));
 
 const Search: FC = () => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const [radius, setRadius] = useState('5');
   const [searchQuery, setSearchQuery] = useState('');
@@ -33,12 +33,6 @@ const Search: FC = () => {
     handleSearch();
   }, [selectedIcons]);
 
-  useEffect(() => {
-    if (place) {
-      navigation(APP_ROUTES_PATH.MAIN + '/' + APP_ROUTES_PATH.FAVORITES);
-    }
-  }, [place]);
-
   const handleSearch = async () => {
     if (!mapRef.current || !userPlacemarkRef.current) return;
 
@@ -47,7 +41,6 @@ const Search: FC = () => {
 
     dispatch(placesActions.setSearchCenter(userCoords));
     dispatch(placesActions.setSearchRadius(currentRadius));
-
     deleteMarks(mapRef);
     dispatch(
       searchPlaces({
@@ -72,8 +65,8 @@ const Search: FC = () => {
   }, [debouncedRadius, userPlacemarkRef, mapRef]);
 
   useEffect(() => {
-    if (foundPlaces.length > 0 && mapRef.current) {
-      createMarks(foundPlaces, mapRef, dispatch);
+    if (selectedIcons.length && foundPlaces.length > 0 && mapRef.current) {
+      createMarks(foundPlaces, mapRef, dispatch, navigate);
     }
   }, [foundPlaces, mapRef]);
 
@@ -105,7 +98,6 @@ const Search: FC = () => {
       <ButtonStyled>
         <Button onClick={handleSearch} disabled={isLoading}>
           <Icons.Search color={theme.colors.white} />
-          {isLoading ? 'Поиск...' : ''}
         </Button>
       </ButtonStyled>
     </>

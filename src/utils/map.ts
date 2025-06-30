@@ -105,7 +105,7 @@ export const createRoute = (
       },
     },
     {
-      boundsAutoApply: true,
+      boundsAutoApply: false,
       wayPointVisible: false,
       routeActiveStrokeWidth: 10,
       routeActiveStrokeColor: '#000000',

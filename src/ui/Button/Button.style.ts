@@ -6,4 +6,8 @@ export const ButtonStyled = styled.button`
 
   width: 100%;
   height: 100%;
+
+  &:disabled {
+    opacity: 0.6;
+  }
 `;

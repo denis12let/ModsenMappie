@@ -7,6 +7,7 @@ export const FavoritesDetailsItemStyled = styled.div`
 export const FavoritesTop = styled.div`
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing.xxxxs};
   margin-bottom: ${({ theme }) => theme.spacing.sm};
   & button {

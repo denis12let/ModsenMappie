@@ -17,7 +17,6 @@ import {
   FavoritesTop,
 } from './FavoriteDetailItem.style';
 import { Icons } from '@assets/icons';
-import attractions from '@assets/icons/attractions.svg';
 import geo from '@assets/icons/geo-button.svg';
 import fav from '@assets/icons/fav-button.svg';
 import { useAppSelector } from '@hooks/useAppSelector';
@@ -25,6 +24,8 @@ import { marks } from '@constants/marks';
 import { createRoute } from '@utils/map';
 import { useMapContext } from '@context/MapContext';
 import { useRouteContext } from '@context/RouteContext';
+import { createMarks, deleteMarks } from '@utils/marks';
+import { useNavigate } from 'react-router-dom';
 
 interface FavoriteDetailItemProps {
   place: PlaceResult;
@@ -32,6 +33,7 @@ interface FavoriteDetailItemProps {
 export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
   const { mapRef, userPlacemarkRef } = useMapContext();
   const { setRouteInfo } = useRouteContext();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(placeSelectors.getFavorites);
@@ -41,6 +43,9 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
   const isInclude = favorites.some((favorite) => favorite.id === place.id);
 
   useEffect(() => {
+    deleteMarks(mapRef);
+    createMarks([place], mapRef, dispatch, navigate);
+
     return () => {
       dispatch(placesActions.clearPlace());
       setRouteInfo('0 км', '0 мин');
