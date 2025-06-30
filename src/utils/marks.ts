@@ -13,12 +13,15 @@ export const createMarks = (
   navigate: NavigateFunction
 ) => {
   places.forEach((place) => {
+    const mark = marks.find((item) => place.subtype === item.name);
+    const iconContent = mark?.path || '';
+
     const placemark = new window.ymaps.Placemark(
       place.coordinates,
       {},
       {
         iconLayout: 'default#image',
-        iconImageHref: `${marks.find((item) => place.subtype === item.name)?.path}`,
+        iconImageHref: iconContent,
         iconImageSize: [40, 40],
         iconImageOffset: [-20, -20],
         interactivityModel: 'default#layer',
@@ -68,7 +71,7 @@ export const reverseGeocode = (coords: [number, number]): Promise<string> => {
           resolve('Адрес не найден');
         }
       })
-      .catch((err: Error) => {
+      .catch(() => {
         reject('Ошибка геокодирования');
       });
   });

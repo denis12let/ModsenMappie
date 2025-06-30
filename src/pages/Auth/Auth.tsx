@@ -1,21 +1,17 @@
-import { FC, lazy, ReactNode, useEffect, useState } from 'react';
+import { FC, lazy, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SignUp, SignIn } from './components';
 import { Button } from '@ui';
 
-import { onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from './../../firebase';
 
 import { AuthBottom, AuthStyled, ButtonWrapper } from './Auth.style';
 
-interface AuthProps {
-  children: ReactNode;
-}
-
 export const AuthAsync = lazy(() => import('./Auth'));
 
-const Auth: FC<AuthProps> = ({ children }) => {
+const Auth: FC = () => {
   const [authUser, setAuthUser] = useState<User | null>(null);
   const [isLogIn, setIsLogIn] = useState(true);
   const navigation = useNavigate();
@@ -32,11 +28,7 @@ const Auth: FC<AuthProps> = ({ children }) => {
       listen();
     };
   }, []);
-  function userSignOut() {
-    signOut(auth)
-      .then(() => console.log('success'))
-      .catch((e) => console.log(e));
-  }
+
   return (
     <AuthStyled>
       {authUser ? <>{navigation(-1)}</> : <>{isLogIn ? <SignIn /> : <SignUp />}</>}

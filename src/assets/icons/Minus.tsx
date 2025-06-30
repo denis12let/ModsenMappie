@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import { theme } from '@styles';
-
 interface MinusProps {
   color?: string;
   decorColor?: string;

@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import { theme } from '@styles';
-
 interface LoginProps {
   color?: string;
   decorColor?: string;

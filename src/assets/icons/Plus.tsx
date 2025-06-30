@@ -1,7 +1,5 @@
 import { FC } from 'react';
 
-import { theme } from '@styles';
-
 interface PlusProps {
   color?: string;
   decorColor?: string;

@@ -23,7 +23,6 @@ type SignUpFormData = yup.InferType<typeof signUpSchema>;
 
 export const SignUp: FC = () => {
   const {
-    register,
     handleSubmit,
     formState: { errors },
     setValue,
