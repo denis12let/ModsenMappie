@@ -1,16 +1,23 @@
+import { THEME } from '@constants';
 import styled from 'styled-components';
 
 export interface NavBarItemProps {
   color?: string;
 }
 
-export const NavBarWrapper = styled.div`
+export interface ControlThemeProps {
+  themeContext: string;
+}
+
+export const NavBarWrapper = styled.div<ControlThemeProps>`
   display: flex;
   max-width: 110px;
   width: 100%;
   height: 100%;
   position: relative;
   flex-grow: 1;
+
+  background-color: ${({ theme, themeContext }) => (themeContext === THEME.LIGHT ? theme.colors.white : theme.colors.dark)};
 
   &::after {
     content: '';
@@ -24,7 +31,6 @@ export const NavBarWrapper = styled.div`
   }
 
   z-index: 100;
-  background-color: ${({ theme }) => theme.colors.white};
 
   & button {
     max-height: 50px;
@@ -61,6 +67,8 @@ export const NavBarLinks = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+
   gap: ${({ theme }) => theme.spacing.sm};
   & > :first-child {
     margin-bottom: ${({ theme }) => theme.spacing.sm};
@@ -68,13 +76,24 @@ export const NavBarLinks = styled.nav`
 
   & > :nth-child(1),
   & > :nth-child(2),
-  & > :nth-child(3) {
+  & > :nth-child(3),
+  & > :nth-child(4) {
     order: 1;
   }
 
-  & > :nth-child(4) {
+  & > :nth-child(5) {
     order: 2;
     margin-top: auto;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+
+  & button {
+    display: flex;
+    justify-content: center;
   }
   @media ${({ theme }) => theme.media.mob} {
     & > :nth-child(1) {
@@ -98,6 +117,11 @@ export const NavBarLinks = styled.nav`
     svg {
       width: 20px;
       height: 20px;
+    }
+
+    img {
+      width: 35px;
+      height: 35px;
     }
   }
 `;

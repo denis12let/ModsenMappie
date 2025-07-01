@@ -7,20 +7,26 @@ import { store } from '@store';
 import { GlobalStyle, theme } from '@styles';
 import { AppRouter } from '@components';
 import { MapProvider, RouteProvider } from '@context';
+import { ThemeProviderContext } from './context/ThemeContext';
+import { THEME } from '@constants';
+
+localStorage.setItem('theme', THEME.LIGHT);
 
 const App: React.FC = () => {
   return (
     <HashRouter>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <RouteProvider>
-            <MapProvider>
-              <GlobalStyle />
-              <AppRouter />
-            </MapProvider>
-          </RouteProvider>
-        </ThemeProvider>
-      </Provider>
+      <ThemeProviderContext>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <RouteProvider>
+              <MapProvider>
+                <GlobalStyle />
+                <AppRouter />
+              </MapProvider>
+            </RouteProvider>
+          </ThemeProvider>
+        </Provider>
+      </ThemeProviderContext>
     </HashRouter>
   );
 };

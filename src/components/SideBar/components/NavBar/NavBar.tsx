@@ -9,9 +9,15 @@ import { theme } from '@styles';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './../../../../firebase';
 
+import lightTheme from '@assets/icons/light-theme.svg';
+import darkTheme from '@assets/icons/dark-theme.svg';
+
 import { NavBarInner, NavBarItem, NavBarLinks, NavBarWrapper } from './NavBar.style';
+import { THEME, useTheme } from '@context';
 
 export const NavBar: FC = () => {
+  const { theme: themeContext, toggleTheme } = useTheme();
+
   const location = useLocation();
   const [element, setElement] = useState<JSX.Element | null>(null);
 
@@ -27,7 +33,6 @@ export const NavBar: FC = () => {
         );
       }
     });
-    //ПОтом вложенность убрать
     return () => unsubscribe();
   }, []);
 
@@ -59,12 +64,14 @@ export const NavBar: FC = () => {
       </NavLink>
     );
   });
-  //Тут тоже, делать через условный рендеринг
   return (
-    <NavBarWrapper>
+    <NavBarWrapper themeContext={themeContext}>
       <NavBarInner>
         <NavBarLinks>
           {links}
+          <Button onClick={toggleTheme}>
+            <img src={themeContext === THEME.LIGHT ? lightTheme : darkTheme} alt="тема" />
+          </Button>
           {element}
         </NavBarLinks>
       </NavBarInner>

@@ -15,9 +15,8 @@ const firebaseConfig = {
   messagingSenderId: '898661847929',
   appId: '1:898661847929:web:008f9eda8668bb4eabd5a8',
   measurementId: 'G-WFZ8BH2X0F',
-};
+}; //вынести потом обязательно спрятать скрыть от глаз
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);

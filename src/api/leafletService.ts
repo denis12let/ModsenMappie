@@ -33,7 +33,6 @@ export class PlaceService {
     }
 
     const response = await apiService.post('', `data=${encodeURIComponent(query)}`);
-    console.log(response.data.elements.length);
     return response.data.elements.map((element: any) => {
       const tags = element.tags || {};
 

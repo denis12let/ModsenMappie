@@ -1,7 +1,12 @@
+import { THEME } from './../../../../context/ThemeContext';
 import styled from 'styled-components';
 
 export interface ToolbarWrapperProps {
   isopen: string;
+}
+
+export interface ToolbarInnerProps {
+  themeContext: string;
 }
 
 export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
@@ -25,7 +30,7 @@ export const ToolBarWrapper = styled.div<ToolbarWrapperProps>`
   }
 `;
 
-export const ToolBarInner = styled.div`
+export const ToolBarInner = styled.div<ToolbarInnerProps>`
   max-width: 400px;
   width: 100%;
   flex-grow: 1;
@@ -35,7 +40,7 @@ export const ToolBarInner = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.sm};
 
-  background: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme, themeContext }) => (themeContext === THEME.LIGHT ? theme.colors.white : theme.colors.dark)};
 
   @media ${({ theme }) => theme.media.mob} {
     padding: ${({ theme }) => theme.spacing.xxxxs};

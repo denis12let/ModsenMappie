@@ -1,7 +1,12 @@
+import { THEME } from '@constants';
 import styled from 'styled-components';
 
 export interface ToolbarCloseButtonIconProps {
   isopen: string;
+}
+
+export interface ControlThemeProps {
+  themeContext: string;
 }
 
 export const ToolbarCloseContainer = styled.div`
@@ -10,8 +15,8 @@ export const ToolbarCloseContainer = styled.div`
   width: 100%;
 `;
 
-export const ToolbarCloseBlock = styled.div`
-  background: ${({ theme }) => theme.colors.white};
+export const ToolbarCloseBlock = styled.div<ControlThemeProps>`
+  background-color: ${({ theme, themeContext }) => (themeContext === THEME.LIGHT ? theme.colors.white : theme.colors.dark)};
   height: calc((100vh - 80px) / 2);
   border-bottom-left-radius: ${({ theme }) => theme.border.borderRadius.md};
   opacity: 0;
@@ -20,8 +25,8 @@ export const ToolbarCloseBlock = styled.div`
     transform: rotateX(180deg);
   }
 `;
-export const ToolbarCloseButton = styled.button`
-  background: ${({ theme }) => theme.colors.white};
+export const ToolbarCloseButton = styled.button<ControlThemeProps>`
+  background-color: ${({ theme, themeContext }) => (themeContext === THEME.LIGHT ? theme.colors.white : theme.colors.dark)};
   width: 45px;
   height: 80px;
   border-radius: 0 ${({ theme }) => theme.border.borderRadius.md} ${({ theme }) => theme.border.borderRadius.md} 0;

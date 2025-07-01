@@ -52,6 +52,7 @@ body {
   min-height: 100vh;
 }
 
+
 html {
   font-size: 16px;
 }
@@ -60,6 +61,17 @@ body {
   overflow-x: hidden;
   font-family: Mont;
   font-weight: 500;
+}
+
+body.dark{
+  background-color: ${({ theme }) => theme.colors.dark};
+  & h1,h2,h3,h4,h5,h6,a,p, div, span, button {
+  color: ${({ theme }) => theme.colors.white}
+}
+
+}
+body.light{
+  background-color: ${({ theme }) => theme.colors.white}
 }
 
 button {

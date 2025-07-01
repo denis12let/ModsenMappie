@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Icons } from '@assets';
 
 import { ToolbarCloseBlock, ToolbarCloseButton, ToolbarCloseButtonIcon, ToolbarCloseContainer } from './ToolButton.style';
+import { useTheme } from '@context';
 
 interface ToolButtonProps {
   isOpen: boolean;
@@ -10,15 +11,17 @@ interface ToolButtonProps {
 }
 
 export const ToolButton: FC<ToolButtonProps> = ({ isOpen, setIsOpen }) => {
+  const { theme: themeContext } = useTheme();
+
   return (
     <ToolbarCloseContainer>
-      <ToolbarCloseBlock />
-      <ToolbarCloseButton onClick={() => setIsOpen(!isOpen)}>
+      <ToolbarCloseBlock themeContext={themeContext} />
+      <ToolbarCloseButton onClick={() => setIsOpen(!isOpen)} themeContext={themeContext}>
         <ToolbarCloseButtonIcon isopen={isOpen.toString()}>
           <Icons.Arrow />
         </ToolbarCloseButtonIcon>
       </ToolbarCloseButton>
-      <ToolbarCloseBlock />
+      <ToolbarCloseBlock themeContext={themeContext} />
     </ToolbarCloseContainer>
   );
 };

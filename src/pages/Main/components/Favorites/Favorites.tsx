@@ -11,7 +11,7 @@ import { FavoritesWrapper, SearchIcon, SearchStyled } from './Favorites.style';
 export const FavoritesAsync = lazy(() => import('./Favorites'));
 
 const Favorites: FC = () => {
-  const { place, favorites } = useAppSelector((state) => state.places);
+  const { place, favorites } = useAppSelector((state) => state.places); //селектор сделать
 
   const [filteredFavorites, setFilteredFavorites] = useState(favorites);
   const [value, setValue] = useState('');

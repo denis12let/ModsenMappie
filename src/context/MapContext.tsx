@@ -15,7 +15,7 @@ export const MapProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const mapRef = useRef<ExtendedMap>(null!);
   const userPlacemarkRef = useRef<ymaps.Placemark | null>(null);
 
-  const [zoom, setZoom] = useState(10);
+  const [zoom, setZoom] = useState(13);
 
   return <MapContext.Provider value={{ mapRef, zoom, setZoom, userPlacemarkRef }}>{children}</MapContext.Provider>;
 };

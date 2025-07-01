@@ -24,7 +24,7 @@ const Search: FC = () => {
   const { mapRef, userPlacemarkRef } = useMapContext();
   const [selectedIcons, setSelectedIcons] = useState<Mark[]>([]);
   const dispatch = useAppDispatch();
-  const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
+  const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places); //сделать селектор
 
   const debouncedRadius = useDebounce(radius, 500);
 
@@ -90,7 +90,7 @@ const Search: FC = () => {
       <Text variation="topic">В радиусе</Text>
       <InputWrapper>
         <InputRadius>
-          <Input text={radius} setText={setRadius} type="number" />
+          <Input text={radius} setText={setRadius} type="number" min={0} />
         </InputRadius>
         <Text variation="title">км</Text>
       </InputWrapper>
