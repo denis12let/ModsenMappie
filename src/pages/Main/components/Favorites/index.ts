@@ -1,3 +1,2 @@
-export { FavoritesAsync as Favorites } from './Favorites';
-
-export * from './components';
+import { FavoritesAsync } from './Favorites';
+export { FavoritesAsync as Favorites };

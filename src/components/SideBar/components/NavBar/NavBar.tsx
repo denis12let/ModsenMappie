@@ -53,7 +53,7 @@ export const NavBar: FC = () => {
             const iconFill = !location.pathname.includes(item.path) ? theme.colors.white : item.color;
 
             return (
-              <NavBarItem color={buttonFill}>
+              <NavBarItem color={buttonFill === theme.colors.white && themeContext === THEME.DARK ? theme.colors.dark : buttonFill}>
                 <Element color={iconFill} />
               </NavBarItem>
             );

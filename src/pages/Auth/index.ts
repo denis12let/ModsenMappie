@@ -1,3 +1,2 @@
-export { AuthAsync as Auth } from './Auth';
-
-export * from './components';
+import { AuthAsync } from './Auth';
+export { AuthAsync as Auth };
