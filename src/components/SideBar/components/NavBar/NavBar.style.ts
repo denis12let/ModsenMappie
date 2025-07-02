@@ -77,11 +77,12 @@ export const NavBarLinks = styled.nav`
   & > :nth-child(1),
   & > :nth-child(2),
   & > :nth-child(3),
-  & > :nth-child(4) {
+  & > :nth-child(4),
+  & > :nth-child(5) {
     order: 1;
   }
 
-  & > :nth-child(5) {
+  & > :nth-child(6) {
     order: 2;
     margin-top: auto;
   }
@@ -100,13 +101,15 @@ export const NavBarLinks = styled.nav`
       margin-bottom: 0;
     }
     & > :nth-child(1),
-    & > :nth-child(4) {
+    & > :nth-child(6) {
       order: 1;
       margin-top: 0;
     }
 
     & > :nth-child(2),
-    & > :nth-child(3) {
+    & > :nth-child(3),
+    & > :nth-child(4),
+    & > :nth-child(5) {
       order: 2;
     }
 

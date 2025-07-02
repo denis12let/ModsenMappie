@@ -3,3 +3,4 @@ export * from './links';
 export * from './marks';
 export * from './api';
 export * from './theme';
+export * from './auth';

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface FavoriteAddButtonProps {
+  isinclude: boolean;
+}
+
 export const FavoritesDetailsItemStyled = styled.div`
   height: 100%;
 `;
@@ -87,5 +91,11 @@ export const FavoritesButtonRoute = styled(FavoriteButton)`
   & button {
     background-color: ${({ theme }) => theme.colors.blue};
     color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
+export const FavoriteAddButton = styled.div<FavoriteAddButtonProps>`
+  svg {
+    fill: ${({ theme, isinclude }) => (isinclude ? theme.colors.red : theme.colors.gray_light_light)};
   }
 `;

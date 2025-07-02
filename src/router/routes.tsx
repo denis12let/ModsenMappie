@@ -2,7 +2,7 @@ import { LazyExoticComponent, ComponentType } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { APP_ROUTES_PATH } from '@constants';
-import { Auth, Favorites, Main, Search } from '@pages';
+import { Auth, Favorites, Main, Routes, Search } from '@pages';
 
 export interface AppRoutesProps {
   path: string;
@@ -26,6 +26,10 @@ export const routes: AppRoutesProps[] = [
       {
         path: APP_ROUTES_PATH.SEARCH,
         element: Search,
+      },
+      {
+        path: APP_ROUTES_PATH.ROUTES,
+        element: Routes,
       },
     ],
   },

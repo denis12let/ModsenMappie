@@ -3,4 +3,5 @@ export const APP_ROUTES_PATH = {
   AUTH: '/auth',
   FAVORITES: 'favorities',
   SEARCH: 'search',
+  ROUTES: 'routes',
 };

@@ -1,19 +1,20 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { Button, Text } from '@ui';
-import { createRoute, createMarks, deleteMarks } from '@utils';
+import { createRoute, createMarks, deleteMarks, reverseGeocode } from '@utils';
 import { useMapContext, useRouteContext } from '@context';
 import { placesActions, placeSelectors } from '@store';
 import { Icons } from '@assets';
 import { marks } from '@constants';
-import { PlaceResult } from 'src/types';
+import { IRoute, PlaceResult } from 'src/types';
 
 import fav from '@assets/icons/fav-button.svg';
 import geo from '@assets/icons/geo-button.svg';
 
 import {
+  FavoriteAddButton,
   FavoriteCard,
   FavoriteImg,
   FavoritesButtonLike,
@@ -37,6 +38,11 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(placeSelectors.getFavorites);
 
+  const { routes } = useAppSelector((state) => state.places);
+  let startCoords, startAdress, endCoords, endAdress;
+  const [id, setId] = useState('');
+  const [isRouteInclude, setIsRouteInclude] = useState(routes.some((route) => route.id === id));
+
   const tags = marks.filter((mark) => mark.name === place.subtype).map((mark) => <img key={mark.path} src={mark.path} alt="tag" />);
 
   const isInclude = favorites.some((favorite) => favorite.id === place.id);
@@ -59,12 +65,51 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
     dispatch(placesActions.toggleFavorite(id));
   };
 
+  useEffect(() => {
+    const fetchRouteData = async () => {
+      startCoords = userPlacemarkRef.current?.geometry?.getCoordinates();
+
+      if (!startCoords) {
+        return;
+      }
+
+      startAdress = await reverseGeocode(startCoords as [number, number]);
+      endCoords = place.coordinates;
+      endAdress = await reverseGeocode(place.coordinates as [number, number]);
+
+      setId(String(startCoords) + String(endCoords));
+
+      const route: IRoute = {
+        id: String(startCoords) + String(endCoords),
+        startCoord: startCoords as [number, number],
+        startAdress,
+        endCoord: endCoords as [number, number],
+        endAdress,
+      };
+
+      dispatch(placesActions.setRoute(route));
+    };
+
+    fetchRouteData();
+  }, []);
+
+  useEffect(() => {
+    setIsRouteInclude(routes.some((route) => route.id === id));
+  }, [routes]);
+
+  const toggleRoute = (id: string) => {
+    dispatch(placesActions.toggleRoute(id));
+  };
+
   const handleExit = () => {
     dispatch(placesActions.clearPlace());
   };
 
   const handleCreateRoute = () => {
-    createRoute(mapRef, userPlacemarkRef, place.coordinates, setRouteInfo);
+    const startCoords = userPlacemarkRef.current?.geometry?.getCoordinates();
+    if (startCoords) {
+      createRoute(mapRef, place.coordinates, setRouteInfo, startCoords);
+    }
   };
 
   return (
@@ -85,7 +130,6 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium aspernatur iste nulla ducimus! Ut maxime soluta in est,
           aliquid explicabo commodi dolore ab non modi, architecto unde temporibus accusamus impedit.
         </FavoritesText>
-        {/* <Text variation="title">Адрес: {place.address || place.subtype}</Text> */}
         <FavoritesButtons>
           <FavoritesButtonLike>
             <Button type="button" onClick={() => toggleFavorite(place.id)}>
@@ -93,6 +137,11 @@ export const FavoriteDetailItem: FC<FavoriteDetailItemProps> = ({ place }) => {
               <p>{isInclude ? 'Сохранено' : 'Сохранить'}</p>
             </Button>
           </FavoritesButtonLike>
+          <FavoriteAddButton isinclude={isRouteInclude}>
+            <Button type="button" onClick={() => toggleRoute(id)}>
+              <Icons.Favorite />
+            </Button>
+          </FavoriteAddButton>
           <FavoritesButtonRoute>
             <Button type="button" onClick={handleCreateRoute}>
               <img src={geo} alt="route" />

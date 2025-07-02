@@ -21,3 +21,11 @@ export interface PlaceData {
   coordinates: [number, number];
   details?: any;
 }
+
+export type IRoute = {
+  id: string;
+  startCoord: [number, number];
+  startAdress: string;
+  endCoord: [number, number];
+  endAdress: string;
+};

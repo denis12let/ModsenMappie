@@ -24,7 +24,7 @@ const Search: FC = () => {
   const { mapRef, userPlacemarkRef } = useMapContext();
   const [selectedIcons, setSelectedIcons] = useState<Mark[]>([]);
   const dispatch = useAppDispatch();
-  const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places); //сделать селектор
+  const { items: foundPlaces, isLoading } = useAppSelector((state) => state.places);
 
   const debouncedRadius = useDebounce(radius, 500);
 

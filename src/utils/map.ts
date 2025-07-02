@@ -87,16 +87,14 @@ export const createMap = (center: number[], zoom: number) => {
 
 export const createRoute = (
   mapRef: IMap,
-  userPlacemarkRef: IPlaceMark,
   endCoord: number[],
-  setRouteInfo: (distance: string, time: string) => void
+  setRouteInfo: (distance: string, time: string) => void,
+  startCoord: number[]
 ) => {
-  const startCoord = userPlacemarkRef.current?.geometry?.getCoordinates();
-
   if (mapRef.current?.route) {
     mapRef.current.geoObjects.remove(mapRef.current.route);
   }
-
+  console.log(startCoord, endCoord);
   const multiRoute = new window.ymaps.multiRouter.MultiRoute(
     {
       referencePoints: [startCoord!, endCoord],

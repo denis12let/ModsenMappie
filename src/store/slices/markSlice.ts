@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { searchPlaces } from '@store';
-import { PlaceResult } from 'src/types';
+import { IRoute, PlaceResult } from 'src/types';
 
 interface PlacesState {
   place: PlaceResult | null;
+  route: IRoute | null;
+  routes: IRoute[];
   items: PlaceResult[];
   favorites: PlaceResult[];
   isLoading: boolean;
@@ -17,6 +19,8 @@ interface PlacesState {
 
 const initialState: PlacesState = {
   place: null,
+  route: null,
+  routes: [],
   items: [],
   favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
   isLoading: false,
@@ -46,10 +50,15 @@ const placesSlice = createSlice({
     clearPlace(state) {
       state.place = null;
     },
+    setRoute(state, action: PayloadAction<IRoute>) {
+      state.route = action.payload;
+    },
+    clearRoute(state) {
+      state.route = null;
+    },
     toggleFavorite(state, action: PayloadAction<number>) {
       const placeId = action.payload;
       const isInclude = state.favorites.some((item) => item.id === placeId);
-
       if (isInclude) {
         state.favorites = state.favorites.filter((item) => item.id !== placeId);
       } else {
@@ -58,6 +67,18 @@ const placesSlice = createSlice({
           state.favorites.push(...favoritePlace);
         } else if (state.place?.id === placeId) {
           state.favorites.push(state.place);
+        }
+      }
+    },
+    toggleRoute(state, action: PayloadAction<string>) {
+      const routeId = action.payload;
+      const isInclude = state.routes.some((item) => item.id === routeId);
+
+      if (isInclude) {
+        state.routes = state.routes.filter((item) => item.id !== routeId);
+      } else {
+        if (state.route) {
+          state.routes.push(state.route);
         }
       }
     },

@@ -8,4 +8,5 @@ export const mainLinks = [
   { path: '/', element: Logo, color: undefined },
   { path: APP_ROUTES_PATH.SEARCH, element: Icons.Search, color: theme.colors.blue },
   { path: APP_ROUTES_PATH.FAVORITES, element: Icons.Favorite, color: theme.colors.red },
+  { path: APP_ROUTES_PATH.ROUTES, element: Icons.Favorite, color: theme.colors.gray_light_light },
 ];
